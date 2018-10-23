@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.skeychen</groupId>
+	<artifactId>dswork-ee</artifactId>
+	<version>${v.dswork}</version>
+	<name>dswork-ee</name>
+	<description>dswork-ee</description>
+	<url>https://github.com/skeychen/dswork</url>
+
+	<parent>
+		<groupId>com.github.skeychen</groupId>
+		<artifactId>dswork-parent</artifactId>
+		<version>8.8.3</version>
+		<!--<relativePath>../dswork-parent/pom.xml</relativePath>-->
+	</parent>
+
+	<properties>
+		<v.tomcat-embed>8.0.53</v.tomcat-embed>
+	</properties>
+
+	<dependencies>
+		<dependency><groupId>org.apache.tomcat</groupId><artifactId>tomcat-annotations-api</artifactId><version>${v.tomcat-embed}</version></dependency>
+		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-logging-juli</artifactId><version>${v.tomcat-embed}</version></dependency>
+		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-logging-log4j</artifactId><version>${v.tomcat-embed}</version></dependency>
+		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-core</artifactId><version>${v.tomcat-embed}</version></dependency>
+		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-el</artifactId><version>${v.tomcat-embed}</version></dependency>
+		<dependency><groupId>org.eclipse.jdt</groupId><artifactId>ecj</artifactId><version>3.12.3</version></dependency>
+		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-jasper</artifactId><version>${v.tomcat-embed}</version></dependency>
+		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-websocket</artifactId><version>${v.tomcat-embed}</version></dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>./</sourceDirectory>
+		<directory>E:/Workspaces/jar/pom/dswork-ee</directory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifestFile>./MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -15,7 +15,7 @@ namespace Dswork.Http
 		private Boolean isHttps = false;
 		private int connectTimeout = 10000;
 		private int readTimeout = 30000;
-		private String userAgent = "Mozilla/5.0 (compatible; MSIE 11; Windows NT 6.1; Win64; x64;)";// Gecko/20150123
+		private String userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104";
 
 		/// <summary>
 		/// 返回当前是否https请求

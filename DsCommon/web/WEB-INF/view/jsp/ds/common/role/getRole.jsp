@@ -50,7 +50,7 @@ $("#listFormMoveAll").click(function(){
 		<td class="menuTool">
 			<a class="insert" href="addRole1.htm?systemid=${systemid}&pid=${pid}">添加</a>
 			<a class="sort" href="updRoleSeq1.htm?systemid=${systemid}&pid=${pid}">排序</a>
-			<a class="move" id="listFormMoveAll" href="#">移动所选</a>
+			<%--<a class="move" id="listFormMoveAll" href="#">移动所选</a>--%>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>

@@ -1,7 +1,10 @@
 package dswork.common.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.common.model.DsCommonFlow;
 import dswork.common.model.DsCommonFlowCategory;
+import dswork.common.model.DsCommonFlowDataRow;
 import dswork.common.model.DsCommonFlowTask;
 import dswork.common.service.DsCommonFlowService;
 import dswork.core.page.PageRequest;
@@ -21,8 +25,21 @@ import dswork.mvc.BaseController;
 @Scope("prototype")
 @Controller
 @RequestMapping("/ds/common/flow")
+@SuppressWarnings("all")
 public class DsCommonFlowController extends BaseController
 {
+	static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	public static String toJson(Object object)
+	{
+		return builder.create().toJson(object);
+	}
+
+	public static <T> T toBean(String json, Class<T> classOfT)
+	{
+		return builder.create().fromJson(json, classOfT);
+	}
+	
 	@Autowired
 	private DsCommonFlowService service;
 
@@ -32,24 +49,52 @@ public class DsCommonFlowController extends BaseController
 		return "/ds/common/flow/addFlowXML.jsp";
 	}
 
+	// 授权
+	@RequestMapping("/getFlowDataTableRwx")
+	public String getFlowDataTableRwx()
+	{
+		return "/ds/common/flow/getFlowDataTableRwx.jsp";
+	}
+	
+	@RequestMapping("/getFlowDataTable")
+	public String getFlowDataTable()
+	{
+		return "/ds/common/flow/getFlowDataTable.jsp";
+	}
+
 	@RequestMapping("/addFlow2")
 	public void addFlow2(DsCommonFlow po)
 	{
 		try
 		{
-			if(po.getAlias().length() <= 0)
+			if (po.getAlias().length() <= 0)
 			{
 				print("0:添加失败，标识不能为空");
 			}
 			else
 			{
 				DsCommonFlowCategory fc = service.get(po.getCategoryid());
-				if(fc != null)
+				Map<String, String> map = new LinkedHashMap<String, String>();
+				String[] tkeyArr = req.getStringArray("tkey");
+				if(tkeyArr.length > 0)
 				{
-					if(!service.isExistsByAlias(po.getAlias()))
+					String[] tjsonArr = req.getStringArray("tjson");
+					for (int i = 0; i < tkeyArr.length; i++)
+					{
+						if(tjsonArr[i].indexOf("\\") < 0)
+						{
+							tjsonArr[i] = tjsonArr[i].replaceAll("\"", "\\\\\"");
+						}
+						map.put(tkeyArr[i], tjsonArr[i]);
+					}
+				}
+				
+				if (fc != null)
+				{
+					if (!service.isExistsByAlias(po.getAlias()))
 					{
 						List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
-						if(po.getFlowxml().length() < 50)
+						if (po.getFlowxml().length() < 50)
 						{
 							String[] taliasArr = req.getStringArray("talias");
 							String[] tnameArr = req.getStringArray("tname");
@@ -57,7 +102,9 @@ public class DsCommonFlowController extends BaseController
 							String[] tnextArr = req.getStringArray("tnext");
 							String[] tusersArr = req.getStringArray("tusers");
 							String[] tmemoArr = req.getStringArray("tmemo");
-							for(int i = 0; i < taliasArr.length; i++)
+							int[] subcountArr = req.getIntArray("subcount", -1);
+							String[] subusersArr = req.getStringArray("subusers");
+							for (int i = 0; i < taliasArr.length; i++)
 							{
 								DsCommonFlowTask m = new DsCommonFlowTask();
 								m.setTname(tnameArr[i]);
@@ -66,6 +113,9 @@ public class DsCommonFlowController extends BaseController
 								m.setTnext(tnextArr[i]);
 								m.setTusers(tusersArr[i]);
 								m.setTmemo(tmemoArr[i]);
+								m.setDatatable(map.get(taliasArr[i]));
+								m.setSubcount(subcountArr[i]);
+								m.setSubusers(subusersArr[i]);
 								taskList.add(m);
 							}
 						}
@@ -73,7 +123,7 @@ public class DsCommonFlowController extends BaseController
 						{
 							MyFlow flow = new MyFlow(po.getFlowxml());
 							List<MyNode> list = flow.getTasks();
-							for(int i = 0; i < list.size(); i++)
+							for (int i = 0; i < list.size(); i++)
 							{
 								MyNode node = list.get(i);
 								DsCommonFlowTask m = new DsCommonFlowTask();
@@ -83,6 +133,9 @@ public class DsCommonFlowController extends BaseController
 								m.setTnext(flow.getNextTask(node.getAlias()));
 								m.setTusers(node.getUsers());
 								m.setTmemo("");
+								m.setDatatable(map.get(node.getAlias()));
+								m.setSubcount(node.getSubcount());
+								m.setSubusers(node.getSubusers());
 								taskList.add(m);
 							}
 						}
@@ -99,7 +152,7 @@ public class DsCommonFlowController extends BaseController
 				}
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -113,13 +166,13 @@ public class DsCommonFlowController extends BaseController
 		try
 		{
 			long[] ids = req.getLongArray("keyIndex", 0);
-			for(long id : ids)
+			for (long id : ids)
 			{
 				service.deleteFlow(id);
 			}
 			print(1);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -131,7 +184,21 @@ public class DsCommonFlowController extends BaseController
 	public String updFlow1()
 	{
 		Long id = req.getLong("keyIndex");
-		put("po", service.getFlow(id));
+		DsCommonFlow po = service.getFlow(id);
+		Map<String, String> taskMap = new HashMap<String, String>();
+		List<DsCommonFlowTask> taskList = po.getTaskList();
+		for (int i = 0; i < taskList.size(); i++)
+		{
+			DsCommonFlowTask task = taskList.get(i);
+			taskMap.put(task.getTalias(), task.getDatatable());
+		}
+		String datatable = po.getDatatable();
+		if (!"".equals(datatable))
+		{
+			taskMap.put("default", toJson(toBean(datatable, List.class)).replaceAll("\"", "\\\\\""));
+		}
+		put("po", po);
+		put("taskMap", taskMap);
 		return "/ds/common/flow/updFlowXML.jsp";
 	}
 
@@ -140,8 +207,24 @@ public class DsCommonFlowController extends BaseController
 	{
 		try
 		{
+
+			Map<String, String> map = new LinkedHashMap<String, String>();
+			String[] tkeyArr = req.getStringArray("tkey");
+			if(tkeyArr.length > 0)
+			{
+				String[] tjsonArr = req.getStringArray("tjson");
+				for (int i = 0; i < tkeyArr.length; i++)
+				{
+					if(tjsonArr[i].indexOf("\\") < 0)
+					{
+						tjsonArr[i] = tjsonArr[i].replaceAll("\"", "\\\\\"");
+					}
+					map.put(tkeyArr[i], tjsonArr[i]);
+				}
+			}
+			
 			List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
-			if(po.getFlowxml().length() < 50)
+			if (po.getFlowxml().length() < 50)
 			{
 				String[] taliasArr = req.getStringArray("talias");
 				String[] tnameArr = req.getStringArray("tname");
@@ -149,7 +232,9 @@ public class DsCommonFlowController extends BaseController
 				String[] tnextArr = req.getStringArray("tnext");
 				String[] tusersArr = req.getStringArray("tusers");
 				String[] tmemoArr = req.getStringArray("tmemo");
-				for(int i = 0; i < taliasArr.length; i++)
+				int[] subcountArr = req.getIntArray("subcount", -1);
+				String[] subusersArr = req.getStringArray("subusers");
+				for (int i = 0; i < taliasArr.length; i++)
 				{
 					DsCommonFlowTask m = new DsCommonFlowTask();
 					m.setTname(tnameArr[i]);
@@ -158,6 +243,9 @@ public class DsCommonFlowController extends BaseController
 					m.setTnext(tnextArr[i]);
 					m.setTusers(tusersArr[i]);
 					m.setTmemo(tmemoArr[i]);
+					m.setDatatable(map.get(taliasArr[i]));
+					m.setSubcount(subcountArr[i]);
+					m.setSubusers(subusersArr[i]);
 					taskList.add(m);
 				}
 			}
@@ -165,7 +253,7 @@ public class DsCommonFlowController extends BaseController
 			{
 				MyFlow flow = new MyFlow(po.getFlowxml());
 				List<MyNode> list = flow.getTasks();
-				for(int i = 0; i < list.size(); i++)
+				for (int i = 0; i < list.size(); i++)
 				{
 					MyNode node = list.get(i);
 					DsCommonFlowTask m = new DsCommonFlowTask();
@@ -175,13 +263,16 @@ public class DsCommonFlowController extends BaseController
 					m.setTnext(flow.getNextTask(node.getAlias()));
 					m.setTusers(node.getUsers());
 					m.setTmemo("");
+					m.setDatatable(map.get(node.getAlias()));
+					m.setSubcount(node.getSubcount());
+					m.setSubusers(node.getSubusers());
 					taskList.add(m);
 				}
 			}
 			service.updateFlow(po, taskList);
 			print(1);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -193,10 +284,10 @@ public class DsCommonFlowController extends BaseController
 	public String getFlow()
 	{
 		Long categoryid = req.getLong("categoryid");
-		if(categoryid > 0)
+		if (categoryid > 0)
 		{
 			DsCommonFlowCategory po = service.get(categoryid);
-			if(po != null)
+			if (po != null)
 			{
 				PageRequest rq = getPageRequest();
 				rq.getFilters().put("vnum", 0);
@@ -225,7 +316,7 @@ public class DsCommonFlowController extends BaseController
 		int status = req.getInt("status", -1);
 		try
 		{
-			if(status == 0 || status == 1)
+			if (status == 0 || status == 1)
 			{
 				service.updateStatus(id, status);
 				print(1);
@@ -235,7 +326,7 @@ public class DsCommonFlowController extends BaseController
 				print("0:参数错误");
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -252,7 +343,7 @@ public class DsCommonFlowController extends BaseController
 			int i = service.deployFlow(id);
 			print(i == 1 ? 1 : "0:此流程版本不能发布");
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -265,7 +356,7 @@ public class DsCommonFlowController extends BaseController
 	{
 		long pid = req.getLong("pid");
 		DsCommonFlowCategory parent = null;
-		if(pid > 0)
+		if (pid > 0)
 		{
 			parent = service.get(pid);
 		}
@@ -283,15 +374,15 @@ public class DsCommonFlowController extends BaseController
 	{
 		try
 		{
-			if(po.getName().length() == 0)
+			if (po.getName().length() == 0)
 			{
 				print("0:名称不能为空");
 				return;
 			}
-			if(0 < po.getPid().longValue())// 存在上级节点时
+			if (0 < po.getPid().longValue())// 存在上级节点时
 			{
 				DsCommonFlowCategory parent = service.get(po.getPid());
-				if(null == parent)
+				if (null == parent)
 				{
 					print("0:参数错误，请刷新重试");
 					return;
@@ -300,7 +391,7 @@ public class DsCommonFlowController extends BaseController
 			service.save(po);
 			print(1);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -315,14 +406,14 @@ public class DsCommonFlowController extends BaseController
 		{
 			int v = 0;
 			long[] ids = req.getLongArray("keyIndex", 0);
-			for(long id : ids)
+			for (long id : ids)
 			{
-				if(id <= 0)
+				if (id <= 0)
 				{
 					continue;
 				}
 				int count = service.getCountByPid(id);
-				if(0 >= count)
+				if (0 >= count)
 				{
 					service.delete(id);
 				}
@@ -333,7 +424,7 @@ public class DsCommonFlowController extends BaseController
 			}
 			print("1" + (v > 0 ? ":" + v + "个不能删除，下级节点不为空" : ""));
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:下级节点或用户不为空");
@@ -346,15 +437,15 @@ public class DsCommonFlowController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		DsCommonFlowCategory po = service.get(id);
-		if(null == po)
+		if (null == po)
 		{
 			return null;// 非法访问，否则肯定存在id
 		}
 		DsCommonFlowCategory parent = null;
-		if(0 < po.getPid())
+		if (0 < po.getPid())
 		{
 			parent = service.get(po.getPid());
-			if(null == parent)
+			if (null == parent)
 			{
 				return null;// 非法数据，否则肯定存在parent
 			}
@@ -373,21 +464,21 @@ public class DsCommonFlowController extends BaseController
 	{
 		try
 		{
-			if(0 >= po.getName().length())
+			if (0 >= po.getName().length())
 			{
 				print("0:名称不能为空");
 				return;
 			}
 			DsCommonFlowCategory old = service.get(po.getId());
-			if(null == old)
+			if (null == old)
 			{
 				print("0:操作失败，请刷新重试");
 				return;
 			}
-			if(old.getPid() > 0)// 存在上级节点时
+			if (old.getPid() > 0)// 存在上级节点时
 			{
 				DsCommonFlowCategory parent = service.get(old.getPid());
-				if(null == parent)
+				if (null == parent)
 				{
 					print("0:参数错误，请刷新重试");
 					return;
@@ -396,7 +487,7 @@ public class DsCommonFlowController extends BaseController
 			service.update(po);
 			print(1);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -419,7 +510,7 @@ public class DsCommonFlowController extends BaseController
 		Long[] ids = CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0));
 		try
 		{
-			if(ids.length > 0)
+			if (ids.length > 0)
 			{
 				service.updateSeq(ids);
 				print(1);
@@ -429,7 +520,7 @@ public class DsCommonFlowController extends BaseController
 				print("0:没有需要排序的节点");
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -450,14 +541,14 @@ public class DsCommonFlowController extends BaseController
 	public void updFlowCategoryMove2()
 	{
 		long pid = req.getLong("pid");
-		if(pid <= 0)
+		if (pid <= 0)
 		{
 			pid = 0;
 		}
 		else
 		{
 			DsCommonFlowCategory m = service.get(pid);
-			if(m == null)
+			if (m == null)
 			{
 				print("0:不能进行移动");// 移动的节点不存在，或者不在相同的系统
 				return;
@@ -466,7 +557,7 @@ public class DsCommonFlowController extends BaseController
 		Long[] ids = getLongArray(req.getString("ids"));
 		try
 		{
-			if(ids.length > 0)
+			if (ids.length > 0)
 			{
 				service.updatePid(ids, pid);
 				print(1);
@@ -476,7 +567,7 @@ public class DsCommonFlowController extends BaseController
 				print("0:没有需要移动的节点");
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -489,10 +580,10 @@ public class DsCommonFlowController extends BaseController
 	{
 		Long rootid = req.getLong("rootid");// 作为限制根节点显示
 		DsCommonFlowCategory po = null;
-		if(rootid > 0)
+		if (rootid > 0)
 		{
 			po = service.get(rootid);
-			if(null == po)
+			if (null == po)
 			{
 				return null;// 没有此根节点
 			}
@@ -542,16 +633,16 @@ public class DsCommonFlowController extends BaseController
 		try
 		{
 			String[] _v = value.split(",");
-			if(_v != null && _v.length > 0)
+			if (_v != null && _v.length > 0)
 			{
 				Long[] _numArr = new Long[_v.length];
-				for(int i = 0; i < _v.length; i++)
+				for (int i = 0; i < _v.length; i++)
 				{
 					try
 					{
 						_numArr[i] = Long.parseLong(_v[i].trim());
 					}
-					catch(NumberFormatException e)
+					catch (NumberFormatException e)
 					{
 						_numArr[i] = 0L;
 					}
@@ -559,9 +650,10 @@ public class DsCommonFlowController extends BaseController
 				return _numArr;
 			}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 		}
 		return new Long[0];
 	}
+
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="testwork.dao.DemoDao">
+
+<insert id="insert" parameterType="testwork.model.Demo">
+	<selectKey resultType="Long" order="AFTER" keyProperty="id">
+		<include refid="dswork.rowid" />
+	</selectKey>
+	insert into DEMO
+	(ID, TITLE, CONTENT, FOUNDTIME)
+	values
+	(#{id}, #{title}, #{content}, #{foundtime})
+</insert>
+
+<delete id="delete">
+	delete from DEMO where ID=#{id}
+</delete>
+
+<update id="update" parameterType="testwork.model.Demo">
+	update DEMO set
+		TITLE=#{title},
+		CONTENT=#{content},
+		FOUNDTIME=#{foundtime}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="testwork.model.Demo">
+	<id property="id" column="ID" />
+	<result property="title" column="TITLE" />
+	<result property="content" column="CONTENT" />
+	<result property="foundtime" column="FOUNDTIME" />
+</resultMap>
+
+<sql id="columns">ID, TITLE, CONTENT, FOUNDTIME</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(title)"> and TITLE like #{title, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(content)"> and CONTENT like #{content, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(foundtime_begin)"> and FOUNDTIME&gt;=#{foundtime_begin} </if>
+		<if test="@Ognl@isNotEmpty(foundtime_end)"> and FOUNDTIME&lt;=#{foundtime_end} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DEMO where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="dswork.top" /><include refid="columns" /> from DEMO
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DEMO
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

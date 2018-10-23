@@ -44,6 +44,117 @@ $dswork.validCallBack = function(){
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getFlow.htm?categoryid=${po.categoryid}";
 }};
+
+var taskMap = new $jskey.Map();
+var arr = new Array();
+var count = 0;
+function initTaskMap(){
+	taskMap.put("default", "");
+	arr[count++] = "default";
+	<c:forEach items="${taskMap}" var="m">
+	taskMap.put("${m.key}", "${m.value}");
+	if("${m.key}" != "default"){
+		arr[count++] = "${m.key}";
+	}
+	</c:forEach>
+}
+function updTaskMap(datatable){
+	if(datatable != ""){
+		var table = JSON.parse(datatable);
+		for(var i = 0; i < arr.length; i++){
+			var task = getRwx(arr[i]);
+			var array = [];
+			if(task != ""){
+				task = JSON.parse(task);
+				for (var m = 0; m < table.length; m++) {
+					var dt = table[m];
+					var row = {};
+					for (var n = 0; n < task.length; n++) {
+						if(table[m].tname==task[n].tname){
+							row.datatype = task[n].datatype;
+							row.tname = task[n].tname;
+							row.talias = task[n].talias;
+							row.rwx = task[n].rwx;
+							array.push(row);
+							break;
+						}
+						else{
+							if(n == task.length-1){
+								row.datatype = table[m].datatype;
+								row.tname = table[m].tname;
+								row.talias = table[m].talias;
+								row.rwx = "400";
+								array.push(row);
+							}
+							continue;
+						}
+					}
+				}
+				task = array;
+				taskMap.put(arr[i], JSON.stringify(task));
+			}
+			else{
+				for (var m = 0; m < table.length; m++) {
+					var dt = table[m];
+					var row = {};
+					row.datatype = table[m].datatype;
+					row.tname = table[m].tname;
+					row.talias = table[m].talias;
+					row.rwx = "400";
+					array.push(row);
+				}
+				task = array;
+				taskMap.put("default", JSON.stringify(task));
+			}
+		}
+		$("#datatable").val(datatable);
+	}
+}
+
+$(function(){
+	initTaskMap();
+	$("#rwx").click(function(){
+		var taskkey = $("#txt_alias").val();
+		if(taskkey != "" && taskkey != "end"){
+			var data = getRwx(taskkey);
+			if(data == null || data == ""){
+				data = getRwx("default");
+			}
+			rwxDialog(taskkey, data);
+		}
+	});
+});
+
+function rwxDialog(taskkey, data){
+	$jskey.dialog.callback = function(){
+		var result = $jskey.dialog.returnValue;
+		if(result != null){
+			callback(taskkey, result);
+		}
+	};
+	$jskey.dialog.showChooseKey({id:"chooseSystem", title:"表单授权", args:{url:"getFlowDataTableRwx.htm", data:data}, width:"600", height:"450", closable:false});
+	return false;
+}
+
+function getRwx(taskkey){return taskMap.get(taskkey);}
+function setRwx(taskkey, taskvalue){arr[count++] = taskkey;taskMap.put(taskkey, taskvalue);}
+function callback(key, value){setRwx(key, value);}
+$dswork.readySubmit = function(){
+	for(var i = 0; i < arr.length; i++){
+		$("#dataForm").append("<input type='hidden' name='tkey' value='"+ arr[i] +"' />")
+		.append("<input type='hidden' name='tjson' value='"+ getRwx(arr[i]) +"' />");
+	}
+}
+function choose(){
+	var datatable = $("#datatable").val();
+	$jskey.dialog.callback = function(){
+		var result = $jskey.dialog.returnValue;
+		if(result != null){
+			updTaskMap(result);
+		}
+	};
+	$jskey.dialog.showChooseKey({id:"chooseSystem", title:"表单结构", args:{url:"getFlowDataTable.htm", data:datatable}, width:"600", height:"450", closable:false});
+}
 </script>
 </head>
 <body>
@@ -66,9 +177,16 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">流程名字</td>
-		<td class="form_input"><input type="text" name="name" style="width:200px;" maxlength="300" dataType="Require" value="${fn:escapeXml(po.name)}" /></td>
+		<td class="form_input"><input type="text" name="name" style="width:200px;" maxlength="300" datatype="Require" value="${fn:escapeXml(po.name)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">表单编辑</td>
+		<td class="form_input">
+		<input type="button" style="width:200px;" class="button" maxlength="300" value="编辑" onclick="choose()" />
+		</td>
 	</tr>
 </table>
+<input type="hidden" id="datatable" name="datatable" value="${fn:escapeXml(po.datatable)}" />
 <input type="hidden" id="flowxml" name="flowxml" value="" />
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
@@ -83,15 +201,19 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 					&nbsp;标识 <input id="txt_alias" type="text" class="text" style="width:108px;" value="" />
 					&nbsp;用户 <input id="txt_users" type="text" class="text" style="width:168px;" value="" />
 				</div>
-				<div>
+				<div style="margin-bottom:5px;">
 					&nbsp;合并 <input id="txt_count" type="number" min="1" max="100" step="1" class="text" style="width:72px;" value="" />个任务
 					&nbsp;名称 <input id="txt_name" type="text" class="text" style="width:168px;" value="" />
 				</div>
+				<div>
+					&nbsp;会签 <input id="txt_subcount" type="number" min="-1" max="10000" step="1" class="text" style="width:72px;" value="" placeholder="无" />个任务
+					&nbsp;用户 <input id="txt_subusers" type="text" class="text" style="width:168px;" value="" placeholder="不填默认所有用户" />
+				</div>
 			</div>
-			<div style="float:left;width:60px;padding:3px 0 3px 3px">
+			<div style="float:left;width:60px;padding:3px 0 3px 3px;">
 				<input id="btn_save" type="button" class="button" style="padding:14px 6px;" value="增改任务" />
 			</div>
-			<div style="float:left;width:60px;padding:3px 0 3px 3px">
+			<div style="float:left;width:60px;padding:3px 0 3px 3px;">
 				<input id="btn_delete" type="button" class="button" style="padding:14px 6px;" value="不可操作" />
 			</div>
 		</td>
@@ -106,6 +228,9 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 				<option value="F">分支组F</option>
 				<option value="G">分支组G</option>
 			</select>
+		</td>
+		<td class="form_input" style="width:39px;padding:3px;">
+			<input id="rwx" type="button" class="button" style="padding:14px 6px;" value="表单授权" />
 		</td>
 		<td class="form_input" style="text-align:right;padding:3px;">
 			<input id="btn_check" type="button" class="button" style="padding:14px 6px;" value="校验流程" />

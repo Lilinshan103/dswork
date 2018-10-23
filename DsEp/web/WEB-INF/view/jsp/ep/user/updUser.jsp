@@ -31,23 +31,23 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">姓名：</td>
-		<td class="form_input"><input type="text" id="name" name="name" dataType="Require" maxlength="25" value="${fn:escapeXml(po.name)}" /></td>
+		<td class="form_input"><input type="text" id="name" name="name" datatype="Require" maxlength="25" value="${fn:escapeXml(po.name)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">身份证号：</td>
-		<td class="form_input"><input type="text" id="idcard" name="idcard" style="width:200px;" require="false" dataType="IdCard" maxlength="18" value="${fn:escapeXml(po.idcard)}" /></td>
+		<td class="form_input"><input type="text" id="idcard" name="idcard" style="width:200px;" datatype="!IdCard" maxlength="18" value="${fn:escapeXml(po.idcard)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">邮箱：</td>
-		<td class="form_input"><input type="text" id="email" name="email" style="width:200px;" require="false" dataType="Email" maxlength="250" value="${fn:escapeXml(po.email)}" /></td>
+		<td class="form_input"><input type="text" id="email" name="email" style="width:200px;" datatype="!Email" maxlength="250" value="${fn:escapeXml(po.email)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">手机：</td>
-		<td class="form_input"><input type="text" id="mobile" name="mobile" require="false" dataType="Mobile" maxlength="50" value="${fn:escapeXml(po.mobile)}" /></td>
+		<td class="form_input"><input type="text" id="mobile" name="mobile" datatype="!Mobile" maxlength="50" value="${fn:escapeXml(po.mobile)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">电话：</td>
-		<td class="form_input"><input type="text" id="phone" name="phone" require="false" dataType="Phone" maxlength="50" value="${fn:escapeXml(po.phone)}" /></td>
+		<td class="form_input"><input type="text" id="phone" name="phone" datatype="!Phone" maxlength="50" value="${fn:escapeXml(po.phone)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">传真：</td>

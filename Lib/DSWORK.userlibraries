@@ -2,6 +2,7 @@
 <eclipse-userlibraries version="2">
     <library name="DSWORK" systemlibrary="false">
         <archive path="/Lib/common/aopalliance-1.0.jar"/>
+        <archive path="/Lib/common/gson-2.8.5.jar"/>
         <archive path="/Lib/common/jstl-1.2.jar"/>
         <archive path="/Lib/common/commons/commons-collections-3.2.2.jar"/>
         <archive path="/Lib/common/commons/commons-dbcp-1.4.jar"/>

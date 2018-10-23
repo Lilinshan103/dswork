@@ -9,6 +9,7 @@
 <script type="text/javascript" src="/web/js/flow/dswork.flow.js"></script>
 <script type="text/javascript" src="/web/js/flow/dswork.flow.check.js"></script>
 <script type="text/javascript" src="/web/js/flow/dswork.flow.event.js"></script>
+<script type="text/javascript" src="/web/js/layui/layer/layer.js"></script>
 <style type="text/css">
 .calias{width:80%;}
 .cname{width:80%;}
@@ -44,6 +45,73 @@ $dswork.validCallBack = function(){
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getFlow.htm?categoryid=${fn:escapeXml(param.categoryid)}";
 }};
+
+var datatable = "";
+var taskMap = new $jskey.Map();
+var arr = new Array();
+var count = 0;
+function initTaskMap(datatable){
+	taskMap = new $jskey.Map();
+	//初始化一个值
+	//循环表单初始化字段权限值
+	var table = JSON.parse(datatable);
+	var array = [];
+	for (var i = 0; i < table.length; i++) {
+		var row = {};
+		row.datatype = table[i].datatype;
+		row.tname = table[i].tname;
+		row.talias = table[i].talias;
+		row.rwx = "400";
+		array.push(row);
+	}
+	taskMap.put("default", JSON.stringify(array));
+	arr[count++] = "default";
+}
+$(function(){
+	$("#rwx").click(function(){
+		var taskkey = $("#txt_alias").val();
+		if(taskkey != "" && taskkey != "end"){
+			var data = getRwx(taskkey);
+			if(data == null || data == ""){
+				data = getRwx("default");
+			}
+			rwxDialog(taskkey, data);
+		}
+	});
+});
+
+function rwxDialog(taskkey, data){
+	$jskey.dialog.callback = function(){
+		var result = $jskey.dialog.returnValue;
+		if(result != null){
+			callback(taskkey, result);
+		}
+	};
+	$jskey.dialog.showChooseKey({id:"chooseSystem", title:"表单授权", args:{url:"getFlowDataTableRwx.htm", data:data}, width:"600", height:"450", closable:false});
+	return false;
+}
+
+function choose(){
+	$jskey.dialog.callback = function(){
+		var result = $jskey.dialog.returnValue;
+		if(result != null){
+			datatable = result;
+			initTaskMap(result);
+		}
+	};
+	$jskey.dialog.showChooseKey({id:"chooseSystem", title:"表单结构", args:{url:"getFlowDataTable.htm", data:datatable}, width:"600", height:"450", closable:false});
+}
+
+function getRwx(taskkey){return taskMap.get(taskkey);}
+function setRwx(taskkey, taskvalue){arr[count++] = taskkey;taskMap.put(taskkey, taskvalue);}
+function callback(key, value){setRwx(key, value);}
+$dswork.readySubmit = function(){
+	for(var i = 0; i < arr.length; i++){
+		$("#dataForm").append("<input type='hidden' name='tkey' value='"+ arr[i] +"' />")
+		.append("<input type='hidden' name='tjson' value='"+ getRwx(arr[i]) +"' />");
+	}
+	$("#datatable").val(datatable);
+}
 </script>
 </head>
 <body>
@@ -64,13 +132,20 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<input type="hidden" name="deployid" value="" />
 	<tr>
 		<td class="form_title">流程标识</td>
-		<td class="form_input"><input type="text" name="alias" style="width:200px;" maxlength="300" dataType="Char" value="" /> <span style="font-weight:bold;">保存后不可修改</span></td>
+		<td class="form_input"><input type="text" name="alias" style="width:200px;" maxlength="300" datatype="Char" value="" /> <span style="font-weight:bold;">保存后不可修改</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">流程名字</td>
-		<td class="form_input"><input type="text" name="name" style="width:200px;" maxlength="300" dataType="Require" value="" /></td>
+		<td class="form_input"><input type="text" name="name" style="width:200px;" maxlength="300" datatype="Require" value="" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">表单编辑</td>
+		<td class="form_input">
+		<input type="button" name="datatable" style="width:200px;" class="button" maxlength="300" value="编辑" onclick="choose()" />
+		</td>
 	</tr>
 </table>
+<input type="hidden" id="datatable" name="datatable" value="" />
 <input type="hidden" id="flowxml" name="flowxml" value="" />
 </form>
 <div class="line"></div>
@@ -86,9 +161,13 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 					&nbsp;标识 <input id="txt_alias" type="text" class="text" style="width:108px;" value="" />
 					&nbsp;用户 <input id="txt_users" type="text" class="text" style="width:168px;" value="" />
 				</div>
-				<div>
+				<div style="margin-bottom:5px;">
 					&nbsp;合并 <input id="txt_count" type="number" min="1" max="100" step="1" class="text" style="width:72px;" value="" />个任务
 					&nbsp;名称 <input id="txt_name" type="text" class="text" style="width:168px;" value="" />
+				</div>
+				<div>
+					&nbsp;会签 <input id="txt_subcount" type="number" min="0" max="10000" step="1" class="text" style="width:72px;" value="" placeholder="无" />个任务
+					&nbsp;用户 <input id="txt_subusers" type="text" class="text" style="width:168px;" value="" placeholder="不填默认所有用户" />
 				</div>
 			</div>
 			<div style="float:left;width:60px;padding:3px 0 3px 3px">
@@ -110,6 +189,9 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 				<option value="G">分支组G</option>
 			</select>
 		</td>
+		<td class="form_input" style="width:39px;padding:3px;">
+			<input id="rwx" type="button" class="button" style="padding:14px 6px;" value="表单授权" />
+		</td>
 		<td class="form_input" style="text-align:right;padding:3px;">
 			<input id="btn_check" type="button" class="button" style="padding:14px 6px;" value="校验流程" />
 		</td>
@@ -118,8 +200,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <div id="myFlowSVG"></div>
 <script type="text/xml" id="myFlowXML">
 <flow>
-<task alias="start" name="开始" users="" g="47,47,28,28"></task>
-<task alias="end" name="结束" users="" g="147,47,28,28"></task>
+<task alias="start" name="开始" users="" datatable="" g="47,47,28,28"></task>
+<task alias="end" name="结束" users="" datatable="" g="147,47,28,28"></task>
 </flow>
 </script>
 </body>

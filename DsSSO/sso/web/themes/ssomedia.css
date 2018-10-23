@@ -1,0 +1,14 @@
+.fieldset{margin:0;border:0;border-top:#e0e0e0 1px solid;padding:5px 0 10px 0;text-align:center;}
+.fieldset .legend{text-align:center;color:#999;margin:0 auto;padding:0;font-size:12px;}
+.icon_qq,
+.icon_weibo,
+.icon_alipay,
+.icon_wechat{margin:0 auto;padding:0;display:inline-block;width:30px;height:30px;vertical-align:middle;border-radius:50%;font-size:normal;font-weight:normal;outline:0 none;}
+.icon_qq    {background:#0288d1 url(share/bg/icons.png)   0px 6px no-repeat;}
+.icon_weibo {background:#d32f2f url(share/bg/icons.png) -30px 6px no-repeat;}
+.icon_alipay{background:#00aaee url(share/bg/icons.png) -60px 6px no-repeat;}
+.icon_wechat{background:#00d20d url(share/bg/icons.png) -90px 6px no-repeat;}
+@media only screen and (max-width:999px){.title{text-align:center;}}
+@media only screen and (max-width:767px){body {background:#fff;}.title{font-size:28px;padding:30px 0px;}.view .login{float:none;margin:0 auto;}}
+@media only screen and (max-width:480px){.bg{background:none;}.boxname{display:none;}.title{font-size:24px;line-height:30px;margin:0 0 16px 0;}.view .title{padding:30px 0px 20px 0;margin:0;}.view .login{float:none;margin:0 auto;width:100%;border-left:none;border-right:none;box-shadow:none;}}
+@media only screen and (max-width:361px){.title{font-size:20px;}.box .name{font-size:20px;}}

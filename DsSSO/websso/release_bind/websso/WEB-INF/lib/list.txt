@@ -1,0 +1,6 @@
+gson-2.8.5.jar
+dswork-http.jar
+dswork-web.jar
+jstl-1.2.jar
+dswork-CharacterEncodingFilter.jar
+dswork-core-util.jar

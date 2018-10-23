@@ -39,11 +39,11 @@ $dswork.deleteRow = function(obj){$(obj).parent().parent().remove();};
 	<input type="hidden" name="deployid" value="" />
 	<tr>
 		<td class="form_title">流程标识</td>
-		<td class="form_input"><input type="text" name="alias" style="width:200px;" maxlength="300" dataType="Char" value="" /> <span style="font-weight:bold;">保存后不可修改</span></td>
+		<td class="form_input"><input type="text" name="alias" style="width:200px;" maxlength="300" datatype="Char" value="" /> <span style="font-weight:bold;">保存后不可修改</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">流程名字</td>
-		<td class="form_input"><input type="text" name="name" style="width:200px;" maxlength="300" dataType="Require" value="" /></td>
+		<td class="form_input"><input type="text" name="name" style="width:200px;" maxlength="300" datatype="Require" value="" /></td>
 	</tr>
 </table>
 <div class="line"></div>
@@ -57,9 +57,9 @@ $dswork.deleteRow = function(obj){$(obj).parent().parent().remove();};
 	</tr>
 	<tr class="list">
 		<td style="text-align:center;"><input type="hidden" name="talias" value="start" />start</td>
-		<td><input type="text" name="tname" class="cname" maxlength="100" dataType="Require" value="开始" /></td>
-		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="end" /></div>
-			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
+		<td><input type="text" name="tname" class="cname" maxlength="100" datatype="Require" value="开始" /></td>
+		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" datatype="Require" value="end" /></div>
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" datatype="Require" value="" /></div>
 		</td>
 		<td><input type="hidden" name="tcount" value="1" />
 			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="" /></div>
@@ -68,7 +68,7 @@ $dswork.deleteRow = function(obj){$(obj).parent().parent().remove();};
 	</tr>
 	<tr class="list" id="end">
 		<td style="text-align:center;"><input type="hidden" name="talias" value="end" />end</td>
-		<td><input type="text" name="tname" class="cname" maxlength="100" dataType="Require" value="结束" /></td>
+		<td><input type="text" name="tname" class="cname" maxlength="100" datatype="Require" value="结束" /></td>
 		<td>&nbsp;<input type="hidden" name="tnext" value="" /><input type="hidden" name="tusers" value="" /></td>
 		<td>&nbsp;<input type="hidden" name="tcount" value="1" /><input type="hidden" name="tmemo" value="" /></td>
 		<td>&nbsp;</td>
@@ -78,12 +78,12 @@ $dswork.deleteRow = function(obj){$(obj).parent().parent().remove();};
 <div style="display:none;">
 <table id="cloneTable">
 	<tr class="list">
-		<td><input type="text" name="talias" class="calias" maxlength="300" dataType="Char" value="" /></td>
-		<td><input type="text" name="tname" class="cname" maxlength="300" dataType="Require" value="" /></td>
-		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
-			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
+		<td><input type="text" name="talias" class="calias" maxlength="300" datatype="Char" value="" /></td>
+		<td><input type="text" name="tname" class="cname" maxlength="300" datatype="Require" value="" /></td>
+		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" datatype="Require" value="" /></div>
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" datatype="Require" value="" /></div>
 		</td>
-		<td><div>合并<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="1" />个任务</div>
+		<td><div>合并<input type="text" name="tcount" class="ccount" maxlength="10" datatype="IntegerPlus" value="1" />个任务</div>
 			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="" /></div>
 		</td>
 		<td style="text-align:center;"><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>

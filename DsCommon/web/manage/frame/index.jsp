@@ -28,14 +28,14 @@ a:hover {background-color:#0f9ae0;}
 <script type="text/javascript">
 var treedata = [
 {id:100000, name:'门户管理', img:"", imgOpen:"", url:"", items:[
-	{id:100002,name:'系统管理', img:"", imgOpen:"", url:'/ds/common/system/getSystem.htm', items:[]}
-	,{id:100003,name:'组织管理', img:"", imgOpen:"", url:'/ds/common/org/getOrgTree.htm', items:[]}
-	,{id:100004,name:'岗位授权管理', img:"", imgOpen:"", url:'/ds/common/orgrole/getOrgTree.htm', items:[]}
+	{id:100002,name:'应用系统管理', img:"", imgOpen:"", url:'/ds/common/system/getSystem.htm', items:[]}
+	,{id:100003,name:'组织机构管理', img:"", imgOpen:"", url:'/ds/common/org/getOrgTree.htm', items:[]}
+	,{id:100004,name:'访问授权管理', img:"", imgOpen:"", url:'/ds/common/orgrole/getOrgTree.htm', items:[]}
 	,{id:100006,name:'用户类型管理', img:"", imgOpen:"", url:'/ds/common/usertype/getUsertype.htm', items:[]}
-	,{id:100007,name:'用户管理', img:"", imgOpen:"", url:'/ds/common/user/getUser.htm', items:[]}
-	,{id:100008,name:'用户授权管理', img:"", imgOpen:"", url:'/ds/common/userorg/getOrgTree.htm', items:[]}
-	,{id:100009,name:'登录日志', img:"", imgOpen:"", url:'/common/log/getCommonLogin.jsp', items:[]}
-	,{id:100010,name:'扩展', img:"", imgOpen:"", url:'', items:[
+	,{id:100007,name:'门户用户管理', img:"", imgOpen:"", url:'/ds/common/user/getUser.htm', items:[]}
+	,{id:100008,name:'用户岗位管理', img:"", imgOpen:"", url:'/ds/common/userorg/getOrgTree.htm', items:[]}
+	,{id:100009,name:'门户登录日志', img:"", imgOpen:"", url:'/common/log/getCommonLogin.jsp', items:[]}
+	,{id:100010,name:'多级管理', img:"", imgOpen:"", url:'', items:[
 		{id:1000101,name:'组织管理', img:"", imgOpen:"", url:'/ds/common/ex/org/getOrgTree.htm', items:[]}
 		,{id:1000102,name:'用户管理', img:"", imgOpen:"", url:'/ds/common/ex/user/getOrgTree.htm', items:[]}
 		,{id:1000103,name:'授权管理', img:"", imgOpen:"", url:'/ds/common/ex/userorg/getOrgTree.htm', items:[]}

@@ -66,13 +66,13 @@ $(function(){init();
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">岗位明细</td>
+		<td class="title">${po.status==2?"单位":po.status==1?"部门":"岗位"}授权管理</td>
 	</tr>
 </table>
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">名称：</td>
+		<td class="form_title">${po.status==2?"单位":po.status==1?"部门":"岗位"}名称：</td>
 		<td class="form_input">${fn:escapeXml(po.name)}</td>
 	</tr>
 	<tr>

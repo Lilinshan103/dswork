@@ -9,7 +9,7 @@
 </head>
 <body>
 <script type="text/javascript">
-var fn = function(e){$jskey.$('show').innerHTML="page=" + e.page + ",pagesize=" + e.pagesize + ",size=" + e.size + ",lastpage=" + e.totalpage;}
+var fn = function(e){$jskey.$('show').innerHTML=$jskey.$('show').innerHTML + "<br />" + "name=" + e.object + ",page=" + e.page + ",pagesize=" + e.pagesize + ",size=" + e.size + ",lastpage=" + e.totalpage;}
 </script>
 点击结果：<span id="show"></span><br />
 <br /><br />使用template可以设置自己的展示模板，如果template直接设置值:1-4可使用默认的四种模板
@@ -83,20 +83,17 @@ $jskey.page({
 	fn:function(e){// 回调函数，初始化完成时也会执行一次，故，可以通过重置size属性，并调用redo()函数重绘翻页导航条
 		// 回调函数中e可用变量和函数有：e.*【所有可设置的参数】，e.totalpage【总页数】，e.redo()【重置函数】
 		e.size = 1000;
-		e.redo();
-
 		// 过程中可以变化样例
 		if(e.page == 10){
 			e.template = 1;
-			e.redo();
 		}
 		else{
 			var s = "{pageview}<span>共{size}条&nbsp;第{page}/{totalpage}页&nbsp;</span>{prev}{first}{pagelist}{last}{next}<span>&nbsp;转到第</span>{skip}<span>页</span>{go}<span>&nbsp;每页</span>{pagesize}条";
 			if(e.template != s){
 				e.template = s;
-				e.redo();
 			}
 		}
+		e.redo();
 		fn(e);
 	}
 });
@@ -166,6 +163,7 @@ var mypageobj = $jskey.page({
 	],
     fn:fn
 });
+// $jskey.$('show').innerHTML="";
 </script>
 <br />外部按钮执行跳转事件<input type="button" value="我们去第5页溜溜" onclick="mypageobj.go(5);"/>
 <br /><br />

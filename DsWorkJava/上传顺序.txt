@@ -1,0 +1,27 @@
+dswork-parent 主要pom，所有模块均依赖它
+
+dswork-core
+dswork-html
+dswork-http
+dswork-jdbc
+dswork-ognl
+dswork-spring
+dswork-web
+
+dswork-config 依赖dswork-core和dswork-web
+dswork-mvc 依赖dswork-core和dswork-web
+
+dswork-flow
+dswork-sso
+dswork-sso-authfilter 依赖dswork-sso
+
+
+
+dswork-cs cs环境，依赖dswork-core和dswork-spring
+
+dswork-java    pom非jar，cs环境
+dswork-javaweb pom非jar，bs环境
+
+dswork-common  依赖dswork-javaweb和dswork-flow
+
+dswork-ee 非发布，依赖tomcat-embed

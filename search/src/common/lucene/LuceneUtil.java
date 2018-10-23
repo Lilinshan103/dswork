@@ -60,16 +60,30 @@ public class LuceneUtil
 	private static final String CmsTitle = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.title", ".searchtitle");
 	private static final String CmsContent = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.content", ".searchcontent");
 
-	private static Formatter formatter = new SimpleHTMLFormatter("<span class='keyvalue'>", "</span>");// 关键字增加前后缀
-	private static Analyzer analyzer = new BaseAnalyzer(false);
-	private static Directory directory = null;
-
 	private static String SearchType = "type";
 	private static String SearchSeq = "seq";
 	private static String SearchKey = "search";
 	private static String SearchName = "name";
 	private static String SearchMsg = "msg";
 	private static String SearchUri = "uri";
+	
+	private static Formatter formatter = new SimpleHTMLFormatter("<span class='keyvalue'>", "</span>");// 关键字增加前后缀
+	private static Analyzer analyzerIndex = new BaseAnalyzer(false);
+	private static Analyzer analyzerKeyword = new org.apache.lucene.analysis.core.UnicodeWhitespaceAnalyzer();
+	private static Analyzer analyzerHighlighter = new BaseAnalyzer(true);
+	
+
+	private static QueryParser queryParserName = new QueryParser(SearchName, analyzerKeyword);
+	private static QueryParser queryParser = new QueryParser(SearchKey, analyzerKeyword);
+	private static QueryParser queryParserOther = new QueryParser(SearchKey, analyzerHighlighter);
+	static
+	{
+		queryParserName.setDefaultOperator(QueryParser.OR_OPERATOR);
+		queryParser.setDefaultOperator(QueryParser.OR_OPERATOR);
+		queryParserOther.setDefaultOperator(QueryParser.AND_OPERATOR);
+	}
+	
+	private static Directory directory = null;
 	private static Document getLuceneDocument(String type, long seq, String uri, String name, String msg)
 	{
 		if(type.length() > 0)
@@ -90,9 +104,9 @@ public class LuceneUtil
 		fieldType.setTokenized(false);
 		doc.add(new Field(SearchUri, uri, fieldType));
 		fieldType = new FieldType();
-		fieldType.setIndexOptions(IndexOptions.NONE);
+		fieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
 		fieldType.setStored(true);
-		fieldType.setTokenized(false);
+		fieldType.setTokenized(true);
 		doc.add(new Field(SearchName, name, fieldType));
 		fieldType = new FieldType();
 		fieldType.setIndexOptions(IndexOptions.NONE);
@@ -171,7 +185,7 @@ public class LuceneUtil
 			{
 				directory = org.apache.lucene.store.FSDirectory.open(java.nio.file.FileSystems.getDefault().getPath(INDEX_PATH));
 			}
-			IndexWriterConfig iwConfig = new IndexWriterConfig(new BaseAnalyzer(false));
+			IndexWriterConfig iwConfig = new IndexWriterConfig(analyzerIndex);// new BaseAnalyzer(false)
 			iwConfig.setOpenMode(OpenMode.CREATE_OR_APPEND);
 			iwriter = new IndexWriter(directory, iwConfig);
 			
@@ -218,9 +232,9 @@ public class LuceneUtil
 		{
 			for(String x : types)
 			{
-				if(x.length() > 0)
+				if(x.trim().length() > 0)
 				{
-					tlist.add(x);
+					tlist.add(x.trim());
 				}
 			}
 		}
@@ -237,25 +251,19 @@ public class LuceneUtil
 			}
 			ireader = DirectoryReader.open(directory);
 			IndexSearcher isearcher = new IndexSearcher(ireader);
-			QueryParser qp = new QueryParser(SearchKey, analyzer);
-			qp.setDefaultOperator(QueryParser.AND_OPERATOR);
-			Query query = qp.parse(keyword);
+			BooleanQuery.Builder builder;
+			Query queryBuilder = null;
+			Query query = null;
+			org.apache.lucene.search.TopFieldDocs topDocs;
 			
-			SortField[] sortField = new SortField[1];
-			sortField[0] = new SortField(SearchSeq, SortField.Type.LONG, true);
-			
-			
-
-			BooleanQuery.Builder builder = new BooleanQuery.Builder();//构造booleanQuery
-			if(types.length > 0)
+			if(tlist.size() > 0)
 			{
-				System.out.println("");
-				System.out.print("你选择的分类是：");
+				System.out.print("，分类：");
 				if(tlist.size() > 0)
 				{
 					if(tlist.size() == 1)
 					{
-						builder.add(new TermQuery(new Term(SearchType, tlist.get(0))), BooleanClause.Occur.MUST);
+						queryBuilder = new TermQuery(new Term(SearchType, tlist.get(0)));
 					}
 					else
 					{
@@ -264,19 +272,50 @@ public class LuceneUtil
 						{
 							builderTemp.add(new TermQuery(new Term(SearchType, x)), BooleanClause.Occur.SHOULD);
 						}
-						builder.add(builderTemp.build(), BooleanClause.Occur.MUST);
+						queryBuilder = builderTemp.build();
 					}
 				}
 			}
-			builder.add(query, BooleanClause.Occur.MUST);
-			BooleanQuery booleanQuery = builder.build();
 			
-			org.apache.lucene.search.TopFieldDocs topDocs = isearcher.search(booleanQuery, Size, new Sort(sortField));
+			builder = new BooleanQuery.Builder();//构造booleanQuery
+			if(queryBuilder != null)
+			{
+				builder.add(queryBuilder, BooleanClause.Occur.MUST);
+			}
+			query = queryParserName.parse(keyword);
+			builder.add(query, BooleanClause.Occur.MUST);
+			topDocs = isearcher.search(builder.build(), Size, new Sort());
 			searchSize = topDocs.totalHits;
 			
-			
+			if(searchSize == 0)
+			{
+				SortField[] sortField = new SortField[1];
+				sortField[0] = new SortField(SearchSeq, SortField.Type.LONG, true);// 按时间排序
+				
+				builder = new BooleanQuery.Builder();//构造booleanQuery
+				if(queryBuilder != null)
+				{
+					builder.add(queryBuilder, BooleanClause.Occur.MUST);
+				}
+				query = queryParser.parse(keyword);
+				builder.add(query, BooleanClause.Occur.MUST);
+				topDocs = isearcher.search(builder.build(), Size, new Sort());
+				searchSize = topDocs.totalHits;
+				
+				if(searchSize == 0)
+				{
+					builder = new BooleanQuery.Builder();//构造booleanQuery
+					if(queryBuilder != null)
+					{
+						builder.add(queryBuilder, BooleanClause.Occur.MUST);
+					}
+					query = queryParserOther.parse(keyword);
+					builder.add(query, BooleanClause.Occur.MUST);
+					topDocs = isearcher.search(builder.build(), Size, new Sort(sortField));
+					searchSize = topDocs.totalHits;
+				}
+			}
 			// org.apache.lucene.search.TopDocs topDocs = isearcher.search(query, Size);
-
 			System.out.print("》，命中");
 			System.out.print(searchSize);
 			System.out.print("条(");
@@ -303,8 +342,8 @@ public class LuceneUtil
 				String name = targetDoc.get(SearchName);
 				String content = targetDoc.get(SearchMsg);
 				String uri = targetDoc.get(SearchUri);
-				String title = highlighter.getBestFragment(analyzer, SearchName, name);
-				String summary = highlighter.getBestFragment(analyzer, SearchMsg, content);
+				String title = highlighter.getBestFragment(analyzerHighlighter, SearchName, name);
+				String summary = highlighter.getBestFragment(analyzerHighlighter, SearchMsg, content);
 				if(title == null)
 				{
 					title = name;

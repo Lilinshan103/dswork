@@ -13,10 +13,6 @@ var treedata = [
 	,{id:116,name:'通用delete', img:"", imgOpen:"", url:'/manage/my/delete/Demo.htm?keyIndex=2', items:[]}
 ]}
 ,
-{id:200, name:'HibernateDemo', img:"", imgOpen:"", url:"", items:[
-	{id:202,name:'DemoHibernate', img:"", imgOpen:"", url:'/manage/hbmdemo/getDemo.htm', items:[]}
-]}
-,
 {id:200, name:'脚本用例', img:"", imgOpen:"", url:"", items:[
 	{id:2001,name:'日期控件', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_calendar.html', items:[]},
 	{id:2004,name:'弹窗', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_dialog.html', items:[]},

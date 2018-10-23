@@ -4,12 +4,6 @@
 	<filter-mapping><filter-name>authFilter</filter-name><url-pattern>/ep/*</url-pattern></filter-mapping>
 	<filter-mapping><filter-name>authFilter</filter-name><url-pattern>/manage/*</url-pattern></filter-mapping>
 	
-	<filter>
-		<filter-name>authOwnFilter</filter-name>
-		<filter-class>common.authown.AuthOwnFilter</filter-class>
-	</filter>
-	<filter-mapping><filter-name>authOwnFilter</filter-name><url-pattern>/cms/*</url-pattern></filter-mapping>
-
 	<error-page><error-code>400</error-code><location>/50x.jsp</location></error-page>
 	<error-page><error-code>404</error-code><location>/50x.jsp</location></error-page>
 	<error-page><error-code>500</error-code><location>/50x.jsp</location></error-page>

@@ -58,7 +58,7 @@ $(function(){
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
-<div region="west" split="true" title="角色管理" style="width:250px;">
+<div <%--region="west" split="true"--%> title="角色管理" style="width:250px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />
 	</div>

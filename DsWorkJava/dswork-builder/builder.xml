@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!--outputEncoding:UTF-8(65001) | GBK(936)-->
+	<charset outputEncoding="936">UTF-8</charset>
+	<!--
+		自定义属性，可往模板中增加自定义变量，不能使用语言关键字，默认加入developer和当前时间：.now
+		frame：使用的框架。dswork(Java) | Dswork(C#)
+		developer：输入你的名字
+	-->
+	<params>
+		<param name="frame" value="dswork" />
+		<param name="developer" value="无名氏" />
+	</params>
+	
+	<!--
+		templatename：template标签中的name值【base | jsp | csharp】
+		rootpath：生成的文件根目录，通常是【项目目录根路径(Java) | 解决方案目录根路径(C#)】
+		src：源代码目录。src目录(Java) | 类库Lib目录(C#)
+		web：网页程序目录。web目录(Java) | MVC项目目录(C#，首字母大写)
+		build：
+			namespace：package或namespace前缀，用“/”分隔
+			module：模块名，页面文件存放相对路径(Java) | MVC域的名称只能一个单词(C#)
+			table：数据库表名，大写
+			model：映射数据库的模型类名，首字母大写，不写的情况下，值为table属性去掉下划线并以大驼峰方式命名
+			comment：mybatis | hibernate | ibatisnet，当template标签中存在comment时，如果和它不一致，则不生成该template
+		<builds templatename="jsp"    rootpath="E:/Workspaces/workspaceTemp/jsp/DemoJava1" src="src" web="web" url="jdbc:sqlserver://192.168.1.18:1433;DatabaseName=GZ_DMS;user=sa;password=sa">
+			<build namespace="/com/testwork" module="demo" table="DEMO" model="Demo" comment="mybatis" />
+		</builds>
+		<builds templatename="csharp" rootpath="E:/Workspaces/workspaceTemp/c/DemoNet" src="DemoNetLib" web="DemoNet" url="jdbc:sqlserver://192.168.1.18:1433;DatabaseName=GZ_DMS;user=sa;password=sa">
+			<build namespace="/Com/Testwork" module="demo" table="DEMO" model="Demo" comment="ibatisnet" />
+		</builds>
+	-->
+	<builds templatename="mvc" rootpath="E:/Workspaces/MySpace/temp" src="src" web="web" url="jdbc:mysql://myserver:3306/demo?characterEncoding=UTF-8&amp;useSSL=false&amp;allowMultiQueries=true&amp;user=plant&amp;password=plant@DB321">
+		<build namespace="/jwzz" module="/manage/jwzz/flow/type" table="PLANT_FLOW_TYPE" model="" comment="mybatis" />
+		<build namespace="/jwzz" module="/manage/jwzz/flow/part" table="PLANT_FLOW_PART" model="" comment="mybatis" />
+		<build namespace="/jwzz" module="/manage/jwzz/flow/partdata" table="PLANT_FLOW_PART_DATA" model="" comment="mybatis" />
+	</builds>
+
+	<!--
+		template中的path是相对路径，实际路径均自动补上builds标签中的rootpath路径，path中的{key}变量将会使用build标签中的值，“//”会被处理一次为“/”，即“///”只处理为“//”
+	-->
+	<templates>
+		<template name="c#"  viewpath="/csharp/idao.ftl"         path="/{src}/Dao/{model}Dao.cs" comment="ibatisnet" />
+		<template name="c#"  viewpath="/csharp/imapper.ftl"      path="/{src}/Mapper/{model}.map.config" comment="ibatisnet" />
+		<template name="c#"  viewpath="/csharp/model.ftl"        path="/{src}/Model/{model}.cs" />
+		<template name="c#"  viewpath="/csharp/service.ftl"      path="/{src}/Service/{model}.Service.cs" />
+		<template name="c#"  viewpath="/csharp/controller.ftl"   path="/{web}/Areas/{module}/Controllers/{model}Controller.cs" />
+		<template name="c#"  viewpath="/csharp/get.ftl"          path="/{web}/Areas/{module}/Views/{model}/Get{model}.cshtml" />
+		<template name="c#"  viewpath="/csharp/getById.ftl"      path="/{web}/Areas/{module}/Views/{model}/Get{model}ById.cshtml" />
+		<template name="c#"  viewpath="/csharp/add.ftl"          path="/{web}/Areas/{module}/Views/{model}/Add{model}1.cshtml" />
+		<template name="c#"  viewpath="/csharp/upd.ftl"          path="/{web}/Areas/{module}/Views/{model}/Upd{model}1.cshtml" />
+
+		<template name="jsp" viewpath="/java/hdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="hibernate" />
+		<template name="jsp" viewpath="/java/hmapper.ftl"        path="/{src}/{namespace}/mapper/{model}.hbm.xml" comment="hibernate" />
+		<template name="jsp" viewpath="/java/mdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="mybatis" />
+		<template name="jsp" viewpath="/java/mmapper.ftl"        path="/{src}/{namespace}/mapper/{model}Dao.map.xml" comment="mybatis" />
+		<template name="jsp" viewpath="/java/model.ftl"          path="/{src}/{namespace}/model/{model}.java" />
+		<template name="jsp" viewpath="/java/service.ftl"        path="/{src}/{namespace}/service/{model}Service.java" />
+		<template name="jsp" viewpath="/java/jsp/get.ftl"        path="/{web}/{module}/get{model}.jsp" />
+		<template name="jsp" viewpath="/java/jsp/getById.ftl"    path="/{web}/{module}/get{model}ById.jsp" />
+		<template name="jsp" viewpath="/java/jsp/add1.ftl"       path="/{web}/{module}/add{model}1.jsp" />
+		<template name="jsp" viewpath="/java/jsp/add2.ftl"       path="/{web}/{module}/add{model}2.jsp" />
+		<template name="jsp" viewpath="/java/jsp/upd1.ftl"       path="/{web}/{module}/upd{model}1.jsp" />
+		<template name="jsp" viewpath="/java/jsp/upd2.ftl"       path="/{web}/{module}/upd{model}2.jsp" />
+		<template name="jsp" viewpath="/java/jsp/del.ftl"        path="/{web}/{module}/del{model}.jsp" />
+
+		<template name="mvc" viewpath="/java/hdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="hibernate" />
+		<template name="mvc" viewpath="/java/hmapper.ftl"        path="/{src}/{namespace}/mapper/{model}.hbm.xml" comment="hibernate" />
+		<template name="mvc" viewpath="/java/mdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="mybatis" />
+		<template name="mvc" viewpath="/java/mmapper.ftl"        path="/{src}/{namespace}/mapper/{model}Dao.map.xml" comment="mybatis" />
+		<template name="mvc" viewpath="/java/model.ftl"          path="/{src}/{namespace}/model/{model}.java" />
+		<template name="mvc" viewpath="/java/service.ftl"        path="/{src}/{namespace}/service/{model}Service.java" />
+		<template name="mvc" viewpath="/java/mvc/controller.ftl" path="/{src}/{namespace}/controller/{model}Controller.java" />
+		<template name="mvc" viewpath="/java/mvc/get.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/get{model}.jsp" />
+		<template name="mvc" viewpath="/java/mvc/getById.ftl"    path="/{web}/WEB-INF/view/jsp/{module}/get{model}ById.jsp" />
+		<template name="mvc" viewpath="/java/mvc/add.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/add{model}.jsp" />
+		<template name="mvc" viewpath="/java/mvc/upd.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/upd{model}.jsp" />
+	</templates>
+</config>

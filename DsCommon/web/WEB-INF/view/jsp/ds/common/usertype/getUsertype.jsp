@@ -19,7 +19,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">用户类型列表-本模块非技术维护人员，请勿操作</td>
+		<td class="title">用户类型列表<span style="color:#ff0000;font-weight:bold;">（本模块非技术维护人员，请勿操作）</span></td>
 		<td class="menuTool">
 			<a class="insert" href="addUsertype1.htm?page=${pageModel.currentPage}">添加</a>
 			<a class="sort" href="updUsertypeSeq1.htm">排序</a>

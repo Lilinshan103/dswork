@@ -1,3 +1,8 @@
+
+网页依赖项目：https://github.com/skeychen/dswork.git/trunk/web
+获取后，需要把web项目的/web/web目录映射为“E:\\WorkServer\\web”目录，可为静态资源
+
+
 系统结构说明
 	系统主要结构为主package：假设为com.test
 		其中分5个文件夹：controller、service、dao、model、mapper
@@ -15,14 +20,14 @@
 		mvc主窗口将扫描controller目录
 		mybatis扫描mapper目录
 数据库连接配置，对应sqlSessionTemplate
-	主连接，系统底层采用读写分离，从库为读库（可负载多台），从库配置均加上read，不写时使用主库相同配置，都不写时使用默认配置
+	主连接，系统底层采用读写分离，从库为读库，从库配置均加上read，不写时使用主库相同配置，都不写时使用默认配置
 		jdbc.dialect.name=mysql #默认值，使用mysql时可不配置，可选值目前有：(gbase,mariadb,mysql,postgresql,sqlite,dm,oracle,db2,derby,sqlserver,sqlserver2000,sqlserver2005,sqlserver2008,sqlserver2012)
 		jdbc.mapper #主连接默认使用dswork.base-package配置的mapper目录扫描，可不配置，但配置了的话，则不使用dswork.base-package的扫描， 同样最多5个，以逗号分隔，需要配置全地址：classpath*:/com/test/mapper2/*.map.xml,classpath*:/common/**/*.map.xml
 		#其余连接数据源配置如下：
 		jdbc.url
 		jdbc.username
 		jdbc.password
-		jdbc.read.url #不写时等于jdbc.url
+		jdbc.read.url #不写时读写不分离，且以下配置无效
 		jdbc.read.username #不写时等于jdbc.username
 		jdbc.read.password #不写时等于jdbc.password
 	其余数据源配置，系统默认可扩展三个，和主连接说明一致
@@ -33,9 +38,73 @@
 		jdbc1.url
 		jdbc1.username
 		jdbc1.password
-		jdbc1.read.url #不写时等于jdbc1.url
+		jdbc1.read.url #不写时读写不分离，且以下配置无效
 		jdbc1.read.username #不写时等于jdbc1.username
 		jdbc1.read.password #不写时等于jdbc1.password
 		
 		
-	
+平时尽量不可用端口
+  1,    // tcpmux
+  7,    // echo
+  9,    // discard
+  11,   // systat
+  13,   // daytime
+  15,   // netstat
+  17,   // qotd
+  19,   // chargen
+  20,   // ftp data
+  21,   // ftp access
+  22,   // ssh
+  23,   // telnet
+  25,   // smtp
+  37,   // time
+  42,   // name
+  43,   // nicname
+  53,   // domain
+  77,   // priv-rjs
+  79,   // finger
+  87,   // ttylink
+  95,   // supdup
+  101,  // hostriame
+  102,  // iso-tsap
+  103,  // gppitnp
+  104,  // acr-nema
+  109,  // pop2
+  110,  // pop3
+  111,  // sunrpc
+  113,  // auth
+  115,  // sftp
+  117,  // uucp-path
+  119,  // nntp
+  123,  // NTP
+  135,  // loc-srv /epmap
+  139,  // netbios
+  143,  // imap2
+  179,  // BGP
+  389,  // ldap
+  465,  // smtp+ssl
+  512,  // print / exec
+  513,  // login
+  514,  // shell
+  515,  // printer
+  526,  // tempo
+  530,  // courier
+  531,  // chat
+  532,  // netnews
+  540,  // uucp
+  556,  // remotefs
+  563,  // nntp+ssl
+  587,  // stmp?
+  601,  // ??
+  636,  // ldap+ssl
+  993,  // ldap+ssl
+  995,  // pop3+ssl
+  2049, // nfs
+  3659, // apple-sasl / PasswordServer
+  4045, // lockd
+  6000, // X11
+  6665, // Alternate IRC [Apple addition]
+  6666, // Alternate IRC [Apple addition]
+  6667, // Standard IRC [Apple addition]
+  6668, // Alternate IRC [Apple addition]
+  6669, // Alternate IRC [Apple addition]

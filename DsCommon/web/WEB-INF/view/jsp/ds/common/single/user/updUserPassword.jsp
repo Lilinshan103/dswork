@@ -31,11 +31,11 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">重置密码</td>
-		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Require" maxlength="32" value="000000" /> <span class="imp">*</span> <span style="font-weight:bold;">默认重置密码为：000000</span></td>
+		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" datatype="Require" maxlength="32" value="000000" /> <span class="imp">*</span> <span style="font-weight:bold;">默认重置密码为：000000</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">确认密码</td>
-		<td class="form_input"><input type="password" id="password2" name="password2" style="width:130px;" dataType="Repeat" to="password" msg="两次输入的密码不一致" value="000000" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="password" id="password2" name="password2" style="width:130px;" datatype="Repeat" to="password" msg="两次输入的密码不一致" value="000000" /> <span class="imp">*</span></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />

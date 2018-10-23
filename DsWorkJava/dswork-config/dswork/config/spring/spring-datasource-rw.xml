@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	   default-autowire="byName" default-lazy-init="false">
+	<bean id="masterDataSource" class="${dswork.datasource:dswork.config.BasicDataSource}" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName:dswork.jdbc.DriverSpy}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis:900000}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis:900000}" />
+		
+		<property name="initialSize" value="${jdbc.initialSize:1}" />
+		<property name="minIdle" value="${jdbc.minIdle:1}" />
+		<property name="maxIdle" value="${jdbc.maxIdle:50}" />
+		<property name="maxActive" value="${jdbc.maxActive:50}" />
+		<property name="maxWait" value="${jdbc.maxWait:60000}" />
+		
+		<property name="validationQuery" value="${jdbc.validationQuery:select 'x'}" />
+		<property name="testWhileIdle" value="${jdbc.testWhileIdle:true}" />
+		<property name="testOnBorrow" value="${jdbc.testOnBorrow:false}" />
+		<property name="testOnReturn" value="${jdbc.testOnReturn:false}" />
+		
+		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements:false}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.maxPoolPreparedStatementPerConnectionSize:-1}" />
+		
+		<property name="filters" value="${jdbc.filters:}" />
+	</bean>
+	<bean id="slaveDataSource" class="${dswork.datasource:dswork.config.BasicDataSource}" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName:dswork.jdbc.DriverSpy}" />
+		<property name="url" value="${jdbc.read.url}" />
+		<property name="username" value="${jdbc.read.username:${jdbc.username}}" />
+		<property name="password" value="${jdbc.read.password:${jdbc.password}}" />
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.read.minEvictableIdleTimeMillis:${jdbc.minEvictableIdleTimeMillis:900000}}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.read.timeBetweenEvictionRunsMillis:${jdbc.timeBetweenEvictionRunsMillis:900000}}" />
+		
+		<property name="initialSize" value="${jdbc.read.initialSize:${jdbc.initialSize:1}}" />
+		<property name="minIdle" value="${jdbc.read.minIdle:${jdbc.minIdle:1}}" />
+		<property name="maxIdle" value="${jdbc.read.maxIdle:${jdbc.maxIdle:50}}" />
+		<property name="maxActive" value="${jdbc.read.maxActive:${jdbc.maxActive:50}}" />
+		<property name="maxWait" value="${jdbc.read.maxWait:${jdbc.maxWait:60000}}" />
+		
+		<property name="validationQuery" value="${jdbc.read.validationQuery:${jdbc.validationQuery:select 'x'}}" />
+		<property name="testWhileIdle" value="${jdbc.read.testWhileIdle:${jdbc.testWhileIdle:true}}" />
+		<property name="testOnBorrow" value="${jdbc.read.testOnBorrow:${jdbc.testOnBorrow:false}}" />
+		<property name="testOnReturn" value="${jdbc.read.testOnReturn:${jdbc.testOnReturn:false}}" />
+		
+		<property name="poolPreparedStatements" value="${jdbc.read.poolPreparedStatements:${jdbc.poolPreparedStatements:false}}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.read.maxPoolPreparedStatementPerConnectionSize:${jdbc.maxPoolPreparedStatementPerConnectionSize:-1}}" />
+	
+		<property name="filters" value="${jdbc.read.filters:${jdbc.filters:}}" />
+	</bean>
+	<bean id="dataSource" class="dswork.core.datasource.DataSource">
+		<property name="masterDataSource" ref="masterDataSource" />
+		<property name="slaveDataSource" ref="slaveDataSource" />
+	</bean>
+</beans>

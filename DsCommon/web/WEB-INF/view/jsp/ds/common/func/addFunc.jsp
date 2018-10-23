@@ -52,11 +52,11 @@ $dswork.callback = function(){
 	</c:if>
 	<tr>
 		<td class="form_title">名称</td>
-		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" dataType="RequireTrim" maxlength="100" value="" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" datatype="RequireTrim" maxlength="100" value="" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">标识</td>
-		<td class="form_input"><input type="text" id="alias" name="alias" style="width:400px;" require="false" dataType="Char" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" id="alias" name="alias" style="width:400px;" datatype="!Char" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">地址</td>
@@ -110,7 +110,7 @@ $dswork.callback = function(){
 <div style="display:none;">
 <table id="cloneTable">
 	<tr class="list">
-		<td><input name="rurl" type="text" dataType="Require" maxlength="100" title="示例：/manage/demo/getDemo.htm" /></td>
+		<td><input name="rurl" type="text" datatype="Require" maxlength="100" title="示例：/manage/demo/getDemo.htm" /></td>
 		<td><input name="rparam" type="text" maxlength="100" title="示例：title=v1&amp;content=v2" /></td>
 		<td><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>

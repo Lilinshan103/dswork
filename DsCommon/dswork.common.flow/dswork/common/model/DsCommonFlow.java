@@ -24,6 +24,8 @@ public class DsCommonFlow
 	private Integer status = 0;
 	// 流程图配置XML
 	private String flowxml = "";
+	// 数据结构
+	private String datatable = "";
 	private List<DsCommonFlowTask> taskList = null;
 
 	public Long getId()
@@ -104,6 +106,16 @@ public class DsCommonFlow
 	public void setFlowxml(String flowxml)
 	{
 		this.flowxml = flowxml;
+	}
+
+	public String getDatatable()
+	{
+		return datatable;
+	}
+
+	public void setDatatable(String datatable)
+	{
+		this.datatable = datatable;
 	}
 
 	public List<DsCommonFlowTask> getTaskList()

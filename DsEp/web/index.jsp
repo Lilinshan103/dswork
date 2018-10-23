@@ -62,6 +62,7 @@ var nn = [
 	{id:10, name:"CMS", img:"", imgOpen:"", url:"", items:[
 		 {id:12,name:"栏目管理", img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
 		,{id:13,name:"栏目回收站", img:"", imgOpen:"", url:'/cms/category/getRecycledCategory.htm', items:[]}
+		,{id:11,name:"专题管理", img:"", imgOpen:"", url:'/cms/special/getSpecial.htm', items:[]}
 		,{id:11,name:"模板编辑", img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
 		,{id:12,name:"附件管理", img:"", imgOpen:"", url:'/cms/file/getFileTree.htm', items:[]}
 		,{id:14,name:"附加功能", img:"", imgOpen:"", url:'', items:[

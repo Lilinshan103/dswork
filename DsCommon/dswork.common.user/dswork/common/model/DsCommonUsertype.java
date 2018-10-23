@@ -113,7 +113,8 @@ public class DsCommonUsertype
 			resourcesList = new ArrayList<DsCommonUsertypeRes>();
 			if(resources != null && resources.length() > 0)
 			{
-				String[] list = resources.split("\n", -1);
+				resources = resources.replaceAll("\n", "||");
+				String[] list = resources.split("\\|\\|", -1);
 				int index = -1;
 				for(String s : list)
 				{
@@ -144,7 +145,7 @@ public class DsCommonUsertype
 			{
 				sb.append(o.getAlias()).append("|").append(o.getName()).append("\n");
 			}
-			this.resources = sb.toString().trim();
+			this.resources = sb.toString().trim().replaceAll("\n", "||");// 把最后一个换行切掉
 		}
 		else
 		{

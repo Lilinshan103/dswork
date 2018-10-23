@@ -11,6 +11,9 @@ sub,sup{vertical-align:baseline;}
 html{overflow:-moz-scrollbars-vertical;zoom:expression(function(ele){ele.style.zoom = "1";document.execCommand("BackgroundImageCache",false,true)}(this))}
 
 body,table,tr{background-color:#ffffff;}
+body::-webkit-scrollbar {width:5px;}
+body::-webkit-scrollbar-thumb {background-color:#95B8E7;}
+body::-webkit-scrollbar-track {background-color:#eeeeee;opacity:0.1;}
 table.normal{width:99%;}
 
 a{outline:none;text-decoration:none;cursor:pointer;}
@@ -235,3 +238,5 @@ td.form_bottom{height:30px;background-color:#ffffff;text-align:center;vertical-a
 #div_maskMessage{z-index:10000;width:300px;padding:40px;font-site:14px;font-weight:bold;position:absolute;text-align:center;background-color:#fff;border:#999 solid 3px;}
 
 .xheTool span{height:22px;height:22px !important;overflow:hidden;}
+.treeheader{height:30px;}
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.common.dao.DsCommonTableCategoryDao">
+
+<insert id="insert" parameterType="dswork.common.model.DsCommonTableCategory">
+	insert into DS_COMMON_TABLE_CATEGORY
+	(ID, NAME, SEQ)
+	values
+	(#{id}, #{name}, #{seq})
+</insert>
+
+<delete id="delete">
+	delete from DS_COMMON_TABLE_CATEGORY where ID=#{id}
+</delete>
+
+<update id="update" parameterType="dswork.common.model.DsCommonTableCategory">
+	update DS_COMMON_TABLE_CATEGORY set
+		NAME=#{name},
+		SEQ=#{seq}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="dswork.common.model.DsCommonTableCategory">
+	<id property="id" column="ID" />
+	<result property="name" column="NAME" />
+	<result property="seq" column="SEQ" />
+</resultMap>
+
+<sql id="columns">ID, NAME, SEQ</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> and ID=#{id} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(seq)"> and SEQ=#{seq} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DS_COMMON_TABLE_CATEGORY where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="dswork.top" /><include refid="columns" /> from DS_COMMON_TABLE_CATEGORY
+	<include refid="dynamicWhere" />
+	order by SEQ asc
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DS_COMMON_TABLE_CATEGORY
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

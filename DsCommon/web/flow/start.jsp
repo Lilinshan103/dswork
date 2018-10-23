@@ -19,7 +19,8 @@
 	</tr>
 </table>
 <%
-String piid = DsFactory.getFlow().start("tech_duty", "1000", "0", "admin", "管理员", 0, true);
+//String piid = DsFactory.getFlow().start("tech_duty", "1000", "0", "admin", "管理员", 0, true);
+String piid = DsFactory.getFlow().start("dd", "admin", "1000", "0", "admin", "管理员", 0, true);
 %>
 <%=piid.equals("")?"启动失败":piid%>
 <br />

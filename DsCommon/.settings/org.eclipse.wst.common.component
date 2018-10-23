@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
 	<wb-module deploy-name="DsCommon">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/common"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
         <wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.dict"/>
@@ -13,6 +12,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.flow"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.extends"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.single"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-common"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.table"/>
 		<property name="context-root" value="DsCommon"/>
 		<property name="java-output-path" value="/DsCommon/web/WEB-INF/classes"/>
 	</wb-module>

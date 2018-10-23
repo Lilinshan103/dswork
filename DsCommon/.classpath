@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="src" path="server"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="common"/>
-	<classpathentry kind="src" path="dswork.common"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-common"/>
 	<classpathentry kind="src" path="config"/>
 	<classpathentry kind="src" path="dswork.common.dict"/>
 	<classpathentry kind="src" path="dswork.common.flow"/>
@@ -13,6 +14,7 @@
 	<classpathentry kind="src" path="dswork.common.user.org"/>
 	<classpathentry kind="src" path="dswork.common.extends"/>
 	<classpathentry kind="src" path="dswork.common.single"/>
+	<classpathentry kind="src" path="dswork.common.table"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -23,22 +25,17 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/database/mysql/mysql-connector-java-5.1.31-bin.jar">
+	<classpathentry kind="lib" path="/Lib/database/mysql/mysql-connector-java-5.1.45-bin.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/json/gson/gson-2.8.0.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/sso/dswork-sso.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/sso/dswork.sso.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/dswork.flow.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-flow.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

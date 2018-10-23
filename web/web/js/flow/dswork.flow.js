@@ -79,7 +79,7 @@ $dswork.flow.MyLine.prototype = {
 
 
 $dswork.flow.MyNode = function(){
-	this.name=""; this.alias=""; this.count=1; this.users="";
+	this.name=""; this.alias=""; this.count=1; this.users=""; this.subcount=-1; this.subusers="";
 	this.x=0; this.y=0; this.width=100; this.height=50;
 	this.$color=$ColorTask; this.color=$ColorTask; this.dom=null; this.flow=null;
 };
@@ -91,7 +91,7 @@ $dswork.flow.MyNode.prototype = {
 		if("start" == this.alias){if($ColorStart != this.color){hc = true;}}
 		else if("end" == this.alias){if($ColorEnd != this.color){hc = true;}}
 		else{if($ColorTask != this.color){hc = true;}}
-		return '<task alias="' + this.alias+'" name="'+this.name+(this.count>1?'" count="'+this.count:'')+(hc?'" color="'+this.color:'')+'" users="'+this.users+'" g="'+this.g()+'">'+l+'</task>';
+		return '<task alias="' + this.alias+'" name="'+this.name+(this.count>1?'" count="'+this.count:'')+(hc?'" color="'+this.color:'')+'" users="'+this.users+'" g="'+this.g()+'"'+ (this.subcount>=0?' subcount="'+this.subcount+'" subusers="'+this.subusers+'"':'') +' >'+l+'</task>';
 	}
 	,toDom:function(){this.dom = document.createElementNS("http://www.w3.org/2000/svg", "g");this.dom.obj = this;
 		this.dom.innerHTML = this.innerHTML();this.flow.dom.appendChild(this.dom);$dswork.flow.initEventNode(this.dom);
@@ -201,6 +201,9 @@ $dswork.flow.parse = function(xmlStirng){
 		if(dom.getAttribute("users")){
 			m.users = dom.getAttribute("users");
 		}
+		if(dom.getAttribute("subusers")){
+			m.subusers = dom.getAttribute("subusers");
+		}
 		if("start" == m.alias){
 			m.name = "开始";
 		}
@@ -215,6 +218,15 @@ $dswork.flow.parse = function(xmlStirng){
 		}
 		catch(ee){
 			m.count = 1;
+		}
+		try{
+			m.subcount = parseInt(dom.getAttribute("subcount"));
+			if(isNaN(m.subcount) || m.subcount < 0){
+				m.subcount = -1;
+			}
+		}
+		catch(ee){
+			m.subcount = -1;
 		}
 		if(dom.getAttribute("color")){
 			m.color = m.$color = dom.getAttribute("color");

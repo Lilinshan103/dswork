@@ -74,27 +74,27 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">姓名：</td>
-		<td class="form_input"><input type="text" name="username" dataType="Require" maxlength="25" value="${fn:escapeXml(admin.name)}" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="text" name="username" datatype="Require" maxlength="25" value="${fn:escapeXml(admin.name)}" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">身份证号：</td>
-		<td class="form_input"><input type="text" id="idcard" name="idcard" style="width:200px;" require="false" dataType="IdCard" maxlength="18" value="${fn:escapeXml(admin.idcard)}" /></td>
+		<td class="form_input"><input type="text" id="idcard" name="idcard" style="width:200px;" datatype="!IdCard" maxlength="18" value="${fn:escapeXml(admin.idcard)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">邮箱：</td>
-		<td class="form_input"><input type="text" name="email" readonly="readonly" style="width:200px;" require="false" dataType="Email" maxlength="250" value="${fn:escapeXml(admin.email)}" /></td>
+		<td class="form_input"><input type="text" name="email" readonly="readonly" style="width:200px;" datatype="!Email" maxlength="250" value="${fn:escapeXml(admin.email)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">手机：</td>
-		<td class="form_input"><input type="text" name="mobile" require="false" dataType="Mobile" maxlength="50" value="${fn:escapeXml(admin.mobile)}" /></td>
+		<td class="form_input"><input type="text" name="mobile" datatype="!Mobile" maxlength="50" value="${fn:escapeXml(admin.mobile)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">电话：</td>
-		<td class="form_input"><input type="text" id="phone" name="phone" require="false" dataType="Phone" maxlength="50" value="${fn:escapeXml(admin.phone)}" /></td>
+		<td class="form_input"><input type="text" id="phone" name="phone" datatype="!Phone" maxlength="50" value="${fn:escapeXml(admin.phone)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">传真：</td>
-		<td class="form_input"><input type="text" id="fax" name="fax" require="false" dataType="Fax" maxlength="50" value="${fn:escapeXml(admin.fax)}" /></td>
+		<td class="form_input"><input type="text" id="fax" name="fax" datatype="!Fax" maxlength="50" value="${fn:escapeXml(admin.fax)}" /></td>
 	</tr>
 </table>
 <input type="hidden" name="userid" value="${admin.id}" />

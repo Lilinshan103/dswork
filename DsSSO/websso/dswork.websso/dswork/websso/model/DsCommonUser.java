@@ -3,6 +3,8 @@
  */
 package dswork.websso.model;
 
+import java.util.Locale;
+
 public class DsCommonUser
 {
 	// ID
@@ -63,7 +65,7 @@ public class DsCommonUser
 
 	public void setAccount(String account)
 	{
-		this.account = account;
+		this.account = String.valueOf(account).toLowerCase(Locale.ENGLISH);
 	}
 
 	public String getPassword()

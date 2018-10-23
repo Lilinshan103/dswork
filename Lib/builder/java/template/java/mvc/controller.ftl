@@ -15,24 +15,24 @@ import ${frame}.core.page.Page;
 import ${frame}.core.page.PageNav;
 import ${frame}.core.util.CollectionUtil;
 import ${namespace}.model.${model};
-import ${namespace}.service.${model}Service;
+import ${namespace}.service.${moduleUpperCamel}Service;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("${module}")
-public class ${model}Controller extends BaseController
+public class ${moduleUpperCamel}Controller extends BaseController
 {
 	@Autowired
-	private ${model}Service service;
+	private ${moduleUpperCamel}Service service;
 
 	//添加
-	@RequestMapping("/add${model}1")
+	@RequestMapping
 	public String add${model}1()
 	{
 		return "${module}/add${model}.jsp";
 	}
 
-	@RequestMapping("/add${model}2")
+	@RequestMapping
 	public void add${model}2(${model} po)
 	{
 		try
@@ -48,7 +48,7 @@ public class ${model}Controller extends BaseController
 	}
 
 	//删除
-	@RequestMapping("/del${model}")
+	@RequestMapping
 	public void del${model}()
 	{
 		try
@@ -64,7 +64,7 @@ public class ${model}Controller extends BaseController
 	}
 
 	//修改
-	@RequestMapping("/upd${model}1")
+	@RequestMapping
 	public String upd${model}1()
 	{
 		Long id = req.getLong("keyIndex");
@@ -73,7 +73,7 @@ public class ${model}Controller extends BaseController
 		return "${module}/upd${model}.jsp";
 	}
 
-	@RequestMapping("/upd${model}2")
+	@RequestMapping
 	public void upd${model}2(${model} po)
 	{
 		try
@@ -89,7 +89,7 @@ public class ${model}Controller extends BaseController
 	}
 
 	//获得分页
-	@RequestMapping("/get${model}")
+	@RequestMapping
 	public String get${model}()
 	{
 		Page<${model}> pageModel = service.queryPage(getPageRequest());
@@ -99,7 +99,7 @@ public class ${model}Controller extends BaseController
 	}
 
 	//明细
-	@RequestMapping("/get${model}ById")
+	@RequestMapping
 	public String get${model}ById()
 	{
 		Long id = req.getLong("keyIndex");

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="src" path="server"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="common"/>
 	<classpathentry kind="src" path="config"/>
 	<classpathentry kind="src" path="dswork.ep"/>
 	<classpathentry kind="src" path="dswork.person"/>
-	<classpathentry kind="src" path="dswork.cms"/>
 	<classpathentry kind="src" path="dswork.bbs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
@@ -32,20 +32,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/json/gson/gson-2.8.0.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.http.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/sso/dswork.sso.jar" sourcepath="F:/leying/Workspaces/workspaceJava/DsSSO/sso-client">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="lib/dswork-authown.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

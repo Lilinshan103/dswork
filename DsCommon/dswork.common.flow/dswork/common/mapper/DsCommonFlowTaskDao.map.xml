@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFlowTask">
 	insert into DS_FLOW_TASK
-	(ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO)
+	(ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO, DATATABLE, SUBCOUNT, SUBUSERS)
 	values
-	(#{id}, #{flowid}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tusers}, #{tmemo})
+	(#{id}, #{flowid}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tusers}, #{tmemo}, #{datatable}, #{subcount}, #{subusers})
 </insert>
 
 <delete id="deleteByFlowid">
@@ -26,10 +26,13 @@
 	<result property="tnext" column="TNEXT" />
 	<result property="tusers" column="TUSERS" />
 	<result property="tmemo" column="TMEMO" />
+	<result property="datatable" column="DATATABLE" />
+	<result property="subcount" column="SUBCOUNT" />
+	<result property="subusers" column="SUBUSERS" />
 </resultMap>
 
 <select id="query" resultMap="result">
-	select <include refid="dswork.top" />ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO
+	select <include refid="dswork.top" />ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO, DATATABLE, SUBCOUNT, SUBUSERS
 	from DS_FLOW_TASK where FLOWID=#{flowid} order by ID
 </select>
 

@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: dswork-spring
-Implementation-Version: 8.0.0.RELEASE
-Built-By: skey(249725997@qq.com)
-X-Compile-Source-JDK: 1.8
-Created-By: 1.8.0_131 (Oracle Corporation)
-Build-Jdk: 1.8.0_131

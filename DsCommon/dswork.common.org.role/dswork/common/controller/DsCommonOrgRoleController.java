@@ -57,13 +57,13 @@ public class DsCommonOrgRoleController extends BaseController
 		{
 			return null;// 非法访问，否则肯定存在id
 		}
-		if(0 == po.getStatus())// 岗位才可以授权
-		{
-			put("po", po);
-			put("list", service.queryList(id));
-			return "/ds/common/orgrole/updOrgRole.jsp";
-		}
-		return null;
+		//if(0 == po.getStatus())// 岗位才可以授权
+		//{
+		put("po", po);
+		put("list", service.queryList(id));
+		return "/ds/common/orgrole/updOrgRole.jsp";
+		//}
+		//return null;
 	}
 
 	@RequestMapping("/updOrgRole2")
@@ -78,24 +78,24 @@ public class DsCommonOrgRoleController extends BaseController
 				print(0);
 				return;// 非法访问，否则肯定存在id
 			}
-			if(0 == po.getStatus())// 岗位才可以授权
+			//if(0 == po.getStatus())// 岗位才可以授权
+			//{
+			String ids = req.getString("roleids", "");
+			List<Long> list = new ArrayList<Long>();
+			if(ids.length() > 0)
 			{
-				String ids = req.getString("roleids", "");
-				List<Long> list = new ArrayList<Long>();
-				if(ids.length() > 0)
+				for(String tmp : ids.split(","))
 				{
-					for(String tmp : ids.split(","))
-					{
-						list.add(new Long(tmp));
-					}
+					list.add(new Long(tmp));
 				}
-				service.save(id, list);
-				print(1);
 			}
-			else
-			{
-				print(0);
-			}
+			service.save(id, list);
+			print(1);
+			//}
+			//else
+			//{
+			//	print(0);
+			//}
 		}
 		catch(Exception e)
 		{

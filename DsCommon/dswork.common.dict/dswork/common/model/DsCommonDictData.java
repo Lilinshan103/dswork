@@ -18,7 +18,7 @@ public class DsCommonDictData
 	// 状态(1树叉,0树叶)
 	private Integer status = 0;
 	// 排序
-	private Integer seq = 0;
+	private Long seq = 0L;
 	// 备注
 	private String memo = "";
 
@@ -82,12 +82,12 @@ public class DsCommonDictData
 		this.status = status;
 	}
 
-	public Integer getSeq()
+	public Long getSeq()
 	{
 		return seq;
 	}
 
-	public void setSeq(Integer seq)
+	public void setSeq(Long seq)
 	{
 		this.seq = seq;
 	}

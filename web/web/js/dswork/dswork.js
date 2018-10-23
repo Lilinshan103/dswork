@@ -227,6 +227,7 @@ $dswork.upload.prototype = {
 		}
 	}
 	p.success = (typeof(p.success) == "function" ? p.success : function(p){});
+	p.clear = (typeof(p.clear) == "function" ? p.clear : function(p){});
 	var ps = {
 		url:p.url,
 		browse_button : p.$bid,
@@ -255,7 +256,7 @@ $dswork.upload.prototype = {
 				p.$input.val(v == "" ? _has : p.fileKey);
 			}
 			var v = p.$input.val();
-			if(v != "" && v != 0){p.$input.attr("msg","");if(p.show){var s = $("#" + p.$sid), btn = $('<input class="button" type="button" value="取消上传" />');s.html('&nbsp;');s.append(btn);btn.bind("click", function(){p.$input.val(p.$input.attr("has") || "");if(p.vid!=""){p.$vInput.val("");}s.html("");p.$input.attr("msg","请上传文件");});}}
+			if(v != "" && v != 0){p.$input.attr("msg","");if(p.show){var s = $("#" + p.$sid), btn = $('<input class="button" type="button" value="取消上传" />');s.html('&nbsp;');s.append(btn);btn.bind("click", function(){p.$input.val(p.$input.attr("has") || "");if(p.vid!=""){p.$vInput.val("");}s.html("");p.$input.attr("msg","请上传文件");p.clear(p);});}}
 			p.success(p);
 		}}
 	};

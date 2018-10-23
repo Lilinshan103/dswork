@@ -26,7 +26,7 @@ window.onload = function()
 <center>
 <form id="dateForm" action="jskey_multiupload2.jsp" method="post">
 <%--key--%>
-<span><input id="fjFile" name="fjFile" type="hidden" value="" dataType="UploadFile" /></span>
+<span><input id="fjFile" name="fjFile" type="hidden" value="" datatype="UploadFile" /></span>
 <input id="fjFileNames" name="fjFileNames" type="hidden" value="" /><%--newname:oldname|newname:oldname--%>
 <br /><br />
 <input type="submit" class="button" id="_submit_" value="提交" />

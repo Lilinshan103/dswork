@@ -7,17 +7,14 @@ import java.util.Stack;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import dswork.core.db.EntityDao;
 import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
-import dswork.core.db.BaseService;
 import dswork.websso.model.DsCommonUser;
 import dswork.websso.model.DsWebssoUser;
 import dswork.websso.dao.DsCommonUserDao;
 import dswork.websso.dao.DsWebssoUserDao;
 
 @Service
-@SuppressWarnings("all")
 public class DsWebssoUserService
 {
 	@Autowired
@@ -25,37 +22,86 @@ public class DsWebssoUserService
 	@Autowired
 	private DsCommonUserDao commonUserDao;
 
-	public void save(DsWebssoUser po)
+	/**
+	 * 这是注册功能
+	 * @param po
+	 */
+	public int saveForRebind(DsWebssoUser po)
 	{
-		DsWebssoUser u = dao.getByOpenid(po);
-		if(u == null)
+		int result = 0;
+		if(po.getSsoaccount().length() > 0)
 		{
-			po.setId(UniqueId.genId());
-			po.setUseraccount(getAccount(po.getId()));
-			dao.save(po);
-		}
-		else
-		{
-			// WEBSSO_USER和COMMON_USER通过ID相关联，如果ID相等，则认为两者是同一个用户
-			if(commonUserDao.get(u.getId()) != null)
+			DsWebssoUser u = dao.getBySsoaccount(po.getSsoaccount());
+			if(u == null)
 			{
-				throw new RuntimeException("用户已存在");
+				po.setId(UniqueId.genUniqueId());
+				result = dao.save(po);
 			}
-			po.setId(u.getId());
-			po.setUseraccount(getAccount(po.getId()));
 		}
-
-		DsCommonUser c = new DsCommonUser();
-		c.setId(po.getId());
-		c.setAccount(po.getUseraccount());
-		c.setName(po.getName());
-		c.setCreatetime(TimeUtil.getCurrentTime());
-		c.setEmail(po.getEmail());
-		c.setPhone(po.getPhone());
-		commonUserDao.save(c);
+		return result;
 	}
 
-	public void update(DsWebssoUser po)
+	/**
+	 * 这是注册功能
+	 * @param po
+	 */
+	public int saveForRegister(DsWebssoUser po)
+	{
+		int result = 0;
+		boolean saveUser = false;
+		DsCommonUser c = new DsCommonUser();
+		if(po.getSsoaccount().length() > 0)// 直接注册
+		{
+			DsCommonUser o = commonUserDao.getByAccount(po.getSsoaccount());
+			if(o == null)
+			{
+				saveUser = true;
+				po.setId(UniqueId.genUniqueId());
+			}
+		}
+		else// 第三方注册
+		{
+			DsWebssoUser u = dao.getByOpenid(po);// 一定是跟sso用户绑定的
+			if(u == null)
+			{
+				po.setId(UniqueId.genUniqueId());
+				po.setSsoaccount(getAccount(po.getId()));// 全小写
+				po.setPassword("");
+				dao.save(po);
+				saveUser = true;
+			}
+		}
+		if(saveUser)
+		{
+			c.setId(po.getId());
+			c.setAccount(po.getSsoaccount());
+			c.setPassword(po.getPassword());
+			c.setName(po.getName());
+			c.setIdcard(po.getIdcard());
+			//c.setCakey(cakey);
+			//c.setWorkcard(workcard);
+			c.setEmail(po.getEmail());
+			c.setMobile(po.getMobile());
+			c.setPhone(po.getPhone());
+			c.setStatus(po.getStatus());
+			c.setCreatetime(TimeUtil.getCurrentTime());
+			
+			//c.setOrgpid(orgpid);
+			//c.setOrgid(orgid);
+			//c.setOrgpname(orgpname);
+			//c.setOrgname(orgname);
+			
+			c.setType(po.getType());
+			c.setTypename(po.getTypename());
+			c.setExalias(po.getExalias());
+			c.setExname(po.getExname());
+			
+			result = commonUserDao.save(c);
+		}
+		return result;
+	}
+
+	public void updateForRebind(DsWebssoUser po)
 	{
 		dao.update(po);
 	}
@@ -65,9 +111,15 @@ public class DsWebssoUserService
 		return dao.getByOpenid(po);
 	}
 
-	public DsWebssoUser getByUseraccount(String useraccount)
+	public DsWebssoUser getBySsoaccount(String ssoaccount)
 	{
-		return dao.getByUseraccount(useraccount);
+		return dao.getBySsoaccount(ssoaccount);
+	}
+
+	public boolean getByAccount(String account)
+	{
+		DsCommonUser user = commonUserDao.getByAccount(account);
+		return user != null;
 	}
 
 	private String getAccount(long id)

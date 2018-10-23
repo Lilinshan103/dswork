@@ -1,10 +1,9 @@
 /**
- * MyBatis样例Dao
+ * 样例Dao
  */
 package testwork.dao;
 
 import org.springframework.stereotype.Repository;
-
 import dswork.core.db.BaseDao;
 import testwork.model.Demo;
 
@@ -15,6 +14,6 @@ public class DemoDao extends BaseDao<Demo, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return Demo.class;
+		return DemoDao.class;
 	}
 }

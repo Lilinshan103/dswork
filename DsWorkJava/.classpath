@@ -3,22 +3,25 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="dswork.test"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.analyzer"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.builder"/>
-	<classpathentry kind="src" path="dswork.config"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.core"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.cs"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.flow"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.html"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.http"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.jdbc"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.mvc"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.ognl"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.spring"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.web"/>
-	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.webio"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-parent"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-analyzer"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-builder"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-config"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-core"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-cs"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-flow"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-html"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-http"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-jdbc"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-mvc"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-ognl"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-spring"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-sso"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-sso-authfilter"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-web"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-webio"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-ee"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
-	<classpathentry kind="src" path="dswork.ee"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -34,15 +37,8 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/json/gson/gson-2.8.0.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/module/lucene/lucene-core-5.5.4.jar"/>
 	<classpathentry kind="lib" path="/Lib/module/template/freemarker-2.3.27.jar"/>
-	<classpathentry kind="lib" path="/Lib/database/mssql/mssql-jdbc4.jar"/>
-	<classpathentry kind="lib" path="/Lib/tomcat_session/manager/memcached-session-manager-2.3.0.jar"/>
-	<classpathentry kind="lib" path="/Lib/tomcat_session/manager/memcached-session-manager-tc8-2.3.0.jar"/>
+	<classpathentry kind="lib" path="/Lib/database/mysql/mysql-connector-java-5.1.45-bin.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

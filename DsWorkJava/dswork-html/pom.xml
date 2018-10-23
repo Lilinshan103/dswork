@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.skeychen</groupId>
+	<artifactId>dswork-html</artifactId>
+	<version>${v.dswork}</version>
+	<name>dswork-html</name>
+	<description>dswork-html</description>
+	<url>https://github.com/skeychen/dswork</url>
+
+	<parent>
+		<groupId>com.github.skeychen</groupId>
+		<artifactId>dswork-parent</artifactId>
+		<version>8.8.3</version>
+	</parent>
+
+	<build>
+		<sourceDirectory>./</sourceDirectory>
+		<directory>E:/Workspaces/jar/pom/dswork-html</directory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifestFile>./MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

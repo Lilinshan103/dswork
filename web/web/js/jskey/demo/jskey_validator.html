@@ -30,7 +30,7 @@ td {text-align:left;}
 <input type="button" value="验证模式三" onclick="check(3);" />&nbsp;
 <input type="button" value="验证模式四" onclick="check(4);" />
 <br />
-需要可以为空的，增加属性：require=&quot;false&quot;
+需要可以为空的，验证类型名称前增加&quot;!&quot;，如：datatype=&quot;!Char&quot;
 <br />
 需要修改显示信息的，增加msg和alertMsg属性即可自定义提示信息
 <br />
@@ -46,7 +46,7 @@ td {text-align:left;}
 	</tr>
 	<tr>
 		<td>英文字母、数字、下划线</td>
-		<td><input type="text" name="TestChar2" datatype="Char" require="false" value="" msg="允许英文字母、数字、下划线，我是可以为空的喔" /></td>
+		<td><input type="text" name="TestChar2" datatype="!Char" value="" msg="允许英文字母、数字、下划线，我是可以为空的喔" /></td>
 	</tr>
 	<tr>
 		<td>中文</td>
@@ -62,15 +62,15 @@ td {text-align:left;}
 	</tr>
 	<tr>
 		<td>中国&港澳台(字母大写)</td>
-		<td><input type="text" name="TestUserCard" dataType="UserCard" value="" /></td>
+		<td><input type="text" name="TestUserCard" datatype="UserCard" value="" /></td>
 	</tr>
 	<tr>
 		<td>统一社会信用代码(企业)</td>
-		<td><input type="text" name="TestUnitCode" dataType="UnitCode" value="" /></td>
+		<td><input type="text" name="TestUnitCode" datatype="UnitCode" value="" /></td>
 	</tr>
 	<tr>
 		<td>组织机构代码(企业)</td>
-		<td><input type="text" name="TestOrgCode" dataType="OrgCode" value="" /></td>
+		<td><input type="text" name="TestOrgCode" datatype="OrgCode" value="" /></td>
 	</tr>
 	<tr>
 		<td>手机号码(纯数字)</td>

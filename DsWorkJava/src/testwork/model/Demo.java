@@ -1,77 +1,60 @@
 /**
- * 样例信息Model
+ * 样例Model，改造了试验性set返回值，测试中
  */
 package testwork.model;
 
-//@javax.persistence.Entity
-//@org.hibernate.annotations.Entity(dynamicUpdate = true)
-//@Table(name = "DEMO")
-@SuppressWarnings("all")
-public class Demo// implements java.io.Serializable
+public class Demo
 {
-	//样例编号
-	private Long id;
-	//样例编号
-	private long id2;
-	public long getId2()
-	{
-		return id2;
-	}
-
-	public void setId2(long id2)
-	{
-		this.id2 = id2;
-	}
-
-	//标题
+	// 主键
+	private Long id = 0L;
+	// 标题
 	private String title = "";
-	//内容
+	// 内容
 	private String content = "";
-	//创建时间
+	// 创建时间
 	private String foundtime = "";
 
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
-
-	//@Id
-	//@GeneratedValue(generator = "hibernate-uuid")
-	//@GenericGenerator(name = "hibernate-uuid", strategy = "uuid")
-	//@Column(length = 32)
-	//@Column(name = "ID")
 	public Long getId()
 	{
-		return this.id;
+		return id;
 	}
 
-	public void setTitle(String title)
+	public Demo setId(Long id)
 	{
-		this.title = title;
+		this.id = id;
+		return this;
 	}
 
 	public String getTitle()
 	{
-		return this.title;
+		return title;
 	}
 
-	public void setContent(String content)
+	public Demo setTitle(String title)
 	{
-		this.content = content;
+		this.title = title;
+		return this;
 	}
 
 	public String getContent()
 	{
-		return this.content;
+		return content;
 	}
 
-	public void setFoundtime(String foundtime)
+	public Demo setContent(String content)
 	{
-		this.foundtime = foundtime;
+		this.content = content;
+		return this;
 	}
 
 	public String getFoundtime()
 	{
-		return this.foundtime;
+		return foundtime;
+	}
+
+	public Demo setFoundtime(String foundtime)
+	{
+		this.foundtime = foundtime;
+		return this;
 	}
 }

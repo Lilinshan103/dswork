@@ -1,0 +1,28 @@
+整体目录结构如下：
+root
+	logs
+	lib
+		...jar
+		...jar
+		...jar
+	classes
+		config
+			spring-hibernate.xml
+			config.properties
+			log4j2_local.xml
+		dswork
+			cs
+				Start.class
+				ExecuteProject.class
+		...class
+		...class
+		...class
+	sconfig.bat
+	start.bat
+
+作为cs运行时
+	1、class类放入classes目录
+	2、jar文件放入lib目录
+	
+修改ExecuteProject.java文件中需要执行的方法体
+	双击运行start.bat文件启动应用

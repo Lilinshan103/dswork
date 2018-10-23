@@ -7,7 +7,7 @@ CREATE TABLE DS_COMMON_DICT
 (
    ID                   BIGINT(18) NOT NULL COMMENT '主键',
    NAME                 VARCHAR(300) DEFAULT NULL COMMENT '引用名',
-   LABEL              VARCHAR(300) DEFAULT NULL COMMENT '名称',
+   LABEL                VARCHAR(300) DEFAULT NULL COMMENT '名称',
    STATUS               INT(1) DEFAULT NULL COMMENT '状态(1树形,0列表)',
    SEQ                  BIGINT(18) DEFAULT NULL COMMENT '排序',
    PRIMARY KEY (ID)
@@ -17,7 +17,7 @@ CREATE TABLE DS_COMMON_DICT_DATA
    ID                   BIGINT(18) NOT NULL COMMENT '主键',
    PID                  BIGINT(18) COMMENT '上级ID(本表,所属字典项)',
    NAME                 VARCHAR(300) DEFAULT NULL COMMENT '引用名',
-   LABEL              VARCHAR(300) DEFAULT NULL COMMENT '名称',
+   LABEL                VARCHAR(300) DEFAULT NULL COMMENT '名称',
    ALIAS                VARCHAR(128) DEFAULT NULL COMMENT '标识',
    STATUS               INT(1) DEFAULT NULL COMMENT '状态(1树叉,0树叶)',
    SEQ                  BIGINT(18) DEFAULT NULL COMMENT '排序',

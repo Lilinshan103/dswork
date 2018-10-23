@@ -34,7 +34,7 @@ $dswork.callback = function(){
 	</c:if>
 	<tr>
 		<td class="form_title">名称</td>
-		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" dataType="RequireTrim" maxlength="50" value="" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" datatype="RequireTrim" maxlength="50" value="" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">类型</td>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+    <Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+	    sticky="false"
+	    memcachedNodes="redis://127.0.0.1:6379"
+	    requestUriIgnorePattern=".*\.(png|gif|jpg|css|js|ico)$"
+	    sessionBackupAsync="false"
+	    sessionBackupTimeout="100"
+	    transcoderFactoryClass="de.javakaffee.web.msm.JavaSerializationTranscoderFactory"
+    />
+</Context>

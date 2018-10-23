@@ -15,6 +15,9 @@ function refreshData(){
 	parent.$jskey.dialog.returnValue = data;
 }
 refreshData();
+function getModel(){
+	return data;
+}
 function setModel(m){
 	data = m;//直接替换
 	refreshData();

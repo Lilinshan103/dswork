@@ -30,11 +30,11 @@ $(function(){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">引用名</td>
-		<td class="form_input"><input type="text" name="name" dataType="Char" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="name" datatype="Char" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">名称</td>
-		<td class="form_input"><input type="text" name="label" dataType="Require" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="label" datatype="Require" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">分类</td>

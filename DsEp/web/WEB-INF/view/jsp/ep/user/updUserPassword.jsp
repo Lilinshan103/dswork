@@ -27,15 +27,15 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">原密码：</td>
-		<td class="form_input"><input type="password" id="oldpassword" name="oldpassword" style="width:130px;" dataType="Require" maxlength="32" value="" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="password" id="oldpassword" name="oldpassword" style="width:130px;" datatype="Require" maxlength="32" value="" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">密码：</td>
-		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Password" msg="不少于6位，且为字母和数字的组合" maxlength="32" value="" /> <span class="imp">*</span> <span style="font-weight:bold;">不少于6位，且为字母和数字的组合</span></td>
+		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" datatype="Password" msg="不少于6位，且为字母和数字的组合" maxlength="32" value="" /> <span class="imp">*</span> <span style="font-weight:bold;">不少于6位，且为字母和数字的组合</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">确认密码：</td>
-		<td class="form_input"><input type="password" id="password2" name="password2" style="width:130px;" dataType="Repeat" to="password" msg="两次输入的密码不一致" value="" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="password" id="password2" name="password2" style="width:130px;" datatype="Repeat" to="password" msg="两次输入的密码不一致" value="" /> <span class="imp">*</span></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />

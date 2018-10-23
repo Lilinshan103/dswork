@@ -35,7 +35,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">名称</td>
-		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="" /></td>
+		<td class="form_input"><input type="text" name="name" maxlength="100" datatype="Require" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">摘要</td>
@@ -43,7 +43,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">排序</td>
-		<td class="form_input"><input type="text" name="seq" maxlength="4" dataType="Integer" value="9999" /></td>
+		<td class="form_input"><input type="text" name="seq" maxlength="4" datatype="Integer" value="9999" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">状态</td>

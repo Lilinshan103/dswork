@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans 
+	        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	   default-autowire="byName" default-lazy-init="false">
+	<bean id="dataSource3" class="${dswork.datasource:org.apache.commons.dbcp.BasicDataSource}" destroy-method="close">
+		<property name="driverClassName" value="${jdbc3.driverClassName:dswork.jdbc.DriverSpy}" />
+		<property name="url" value="${jdbc3.url}" />
+		<property name="username" value="${jdbc3.username}" />
+		<property name="password" value="${jdbc3.password}" />
+		
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${jdbc3.minEvictableIdleTimeMillis:900000}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc3.timeBetweenEvictionRunsMillis:900000}" />
+		
+		<property name="initialSize" value="${jdbc3.initialSize:1}" />
+		<property name="minIdle" value="${jdbc3.minIdle:1}" />
+		<property name="maxIdle" value="${jdbc3.maxIdle:50}" />
+		<property name="maxActive" value="${jdbc3.maxActive:50}" />
+		<property name="maxWait" value="${jdbc3.maxWait:60000}" />
+		
+		<property name="validationQuery" value="${jdbc3.validationQuery:select 'x'}" />
+		<property name="testWhileIdle" value="${jdbc3.testWhileIdle:true}" />
+		<property name="testOnBorrow" value="${jdbc3.testOnBorrow:false}" />
+		<property name="testOnReturn" value="${jdbc3.testOnReturn:false}" />
+		
+		<property name="poolPreparedStatements" value="${jdbc3.poolPreparedStatements:false}" />
+	</bean>
+	<bean id="sqlSessionFactory3" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="plugins">
+			<list>
+				<bean class="dswork.core.mybatis.OffsetLimitInterceptor">
+	   				<property name="properties">
+	   					<props>
+							<prop key="name">${jdbc3.dialect.name:mysql}</prop>
+						</props>
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="typeHandlers">
+			<list>
+				<bean class="dswork.core.mybatis.LikeTypeHandler" />
+				<bean class="dswork.core.mybatis.LikePrefixTypeHandler" />
+				<bean class="dswork.core.mybatis.LikeSuffixTypeHandler" />
+			</list>
+		</property>
+		<property name="typeAliases">
+			<list>
+				<value>dswork.core.mybatis.LikeTypeHandler</value>
+				<value>dswork.core.mybatis.LikePrefixTypeHandler</value>
+				<value>dswork.core.mybatis.LikeSuffixTypeHandler</value>
+			</list>
+		</property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:/dswork/config/mybatis/${jdbc3.dialect.name:mysql}.map.xml</value>
+				<value>${dswork3.m1:classpath*:/x/mapper/**/*.map.xml}</value>
+				<value>${dswork3.m2:classpath*:/x/mapper/**/*.map.xml}</value>
+				<value>${dswork3.m3:classpath*:/x/mapper/**/*.map.xml}</value>
+				<value>${dswork3.m4:classpath*:/x/mapper/**/*.map.xml}</value>
+				<value>${dswork3.m5:classpath*:/x/mapper/**/*.map.xml}</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="dataSource3"/>
+	</bean>
+	<bean id="sqlSessionTemplate3" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory3" />
+	</bean>
+</beans>

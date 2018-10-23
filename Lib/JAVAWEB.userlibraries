@@ -2,6 +2,7 @@
 <eclipse-userlibraries version="2">
     <library name="JAVAWEB" systemlibrary="false">
         <archive path="/Lib/common/aopalliance-1.0.jar"/>
+        <archive path="/Lib/common/gson-2.8.5.jar"/>
         <archive path="/Lib/common/jstl-1.2.jar"/>
         <archive path="/Lib/common/commons/commons-collections-3.2.2.jar"/>
         <archive path="/Lib/common/commons/commons-dbcp-1.4.jar"/>
@@ -9,14 +10,14 @@
         <archive path="/Lib/common/commons/commons-lang-2.6.jar"/>
         <archive path="/Lib/common/commons/commons-logging-1.2.jar"/>
         <archive path="/Lib/common/commons/commons-pool-1.6.jar"/>
-        <archive path="/Lib/common/dswork/dswork.config.jar"/>
-        <archive path="/Lib/common/dswork/dswork.core.jar"/>
-        <archive path="/Lib/common/dswork/dswork.http.jar"/>
-        <archive path="/Lib/common/dswork/dswork.jdbc.jar"/>
-        <archive path="/Lib/common/dswork/dswork.mvc.jar"/>
-        <archive path="/Lib/common/dswork/dswork.ognl.jar"/>
-        <archive path="/Lib/common/dswork/dswork.spring.jar"/>
-        <archive path="/Lib/common/dswork/dswork.web.jar"/>
+        <archive path="/Lib/common/dswork/dswork-config.jar"/>
+        <archive path="/Lib/common/dswork/dswork-core.jar"/>
+        <archive path="/Lib/common/dswork/dswork-http.jar"/>
+        <archive path="/Lib/common/dswork/dswork-jdbc.jar"/>
+        <archive path="/Lib/common/dswork/dswork-mvc.jar"/>
+        <archive path="/Lib/common/dswork/dswork-ognl.jar"/>
+        <archive path="/Lib/common/dswork/dswork-spring.jar"/>
+        <archive path="/Lib/common/dswork/dswork-web.jar"/>
         <archive path="/Lib/common/log/slf4j-api-1.7.25.jar"/>
         <archive path="/Lib/common/log/log4j2/log4j-api-2.3.jar"/>
         <archive path="/Lib/common/log/log4j2/log4j-core-2.3.jar"/>

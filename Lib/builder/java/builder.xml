@@ -68,8 +68,8 @@
 		<template name="mvc" viewpath="/java/mdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="mybatis" />
 		<template name="mvc" viewpath="/java/mmapper.ftl"        path="/{src}/{namespace}/mapper/{model}Dao.map.xml" comment="mybatis" />
 		<template name="mvc" viewpath="/java/model.ftl"          path="/{src}/{namespace}/model/{model}.java" />
-		<template name="mvc" viewpath="/java/service.ftl"        path="/{src}/{namespace}/service/{model}Service.java" />
-		<template name="mvc" viewpath="/java/mvc/controller.ftl" path="/{src}/{namespace}/controller/{model}Controller.java" />
+		<template name="mvc" viewpath="/java/mvc/service.ftl"    path="/{src}/{namespace}/service/{moduleUpperCamel}Service.java" />
+		<template name="mvc" viewpath="/java/mvc/controller.ftl" path="/{src}/{namespace}/controller/{moduleUpperCamel}Controller.java" />
 		<template name="mvc" viewpath="/java/mvc/get.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/get{model}.jsp" />
 		<template name="mvc" viewpath="/java/mvc/getById.ftl"    path="/{web}/WEB-INF/view/jsp/{module}/get{model}ById.jsp" />
 		<template name="mvc" viewpath="/java/mvc/add.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/add{model}.jsp" />

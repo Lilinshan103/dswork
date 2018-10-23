@@ -20,7 +20,7 @@ $f.set = function(x){
 			x.selected();
 		}else{
 			if($f.p.state == $dswork.flow.p.EDIT){
-				$f.setTask("", "", 1, "");
+				$f.setTask("", "", 1, "", "", "");
 				$("#btn_save").prop("disabled", false).val("增加任务");
 			}
 		}
@@ -32,14 +32,30 @@ $f.setNone = function(){
 	$("#txt_name").val("").prop("disabled", true);
 	$("#txt_count").val("1").prop("disabled", true);
 	$("#txt_users").val("").prop("disabled", true);
+	$("#txt_subcount").val("").prop("disabled", true);
+	$("#txt_subusers").val("").prop("disabled", true);
 	$("#txt_forks").val("").prop("disabled", true);
 	$("#btn_save").prop("disabled", true).val("不可操作");
 };
-$f.setTask = function(alias, name, count, users){
+$f.setTask = function(alias, name, count, users, subcount, subusers){
 	$("#txt_alias").val(alias).prop("disabled", false);
 	$("#txt_name").val(name).prop("disabled", false);
 	$("#txt_count").val(count).prop("disabled", false);
 	$("#txt_users").val(users).prop("disabled", false);
+	$("#txt_subcount").val(subcount<0?"":subcount).prop("disabled", false);
+	$("#txt_subusers").val(subusers).prop("disabled", false);
+	if(alias == "start"){
+		$("#txt_alias").prop("disabled", true);
+		$("#txt_count").val("1").prop("disabled", true);
+		$("#txt_subcount").val("").prop("disabled", true);
+		$("#txt_subusers").val("").prop("disabled", true);
+	}else if(alias == "end"){
+		$("#txt_alias").prop("disabled", true);
+		$("#txt_count").val("1").prop("disabled", true);
+		$("#txt_users").val("").prop("disabled", true);
+		$("#txt_subcount").val("").prop("disabled", true);
+		$("#txt_subusers").val("").prop("disabled", true);
+	}
 };
 $f.setLine = function(forks){
 	$("#txt_forks").val(forks).prop("disabled", false);
@@ -49,9 +65,12 @@ $f.getTask = function(){
 		"alias":$("#txt_alias").val(),
 		"name":$("#txt_name").val(),
 		"count":$("#txt_count").val(),
-		"users":$("#txt_users").val()
+		"users":$("#txt_users").val(),
+		"subcount":$("#txt_subcount").val(),
+		"subusers":$("#txt_subusers").val()
 	};
 	try{o.count = parseInt(o.count);if(isNaN(o.count) || o.count < 1){o.count = 1;}}catch(ee){o.count = 1;}
+	try{o.subcount = parseInt(o.subcount);if(isNaN(o.subcount) || o.subcount < 0){o.subcount = -1;}}catch(ee){o.subcount = -1;}
 	return o;
 };
 $f.getLine = function(){
@@ -122,14 +141,9 @@ $f.initEventNode = function(dom){
 	return false;});
 	$f.on(dom, "mouseup", function(){var e = this;
 		if($f.p.isDown && $f.p.state == $f.p.EDIT){
-			$f.setTask(e.obj.alias, e.obj.name, e.obj.count, e.obj.users);
+			$f.setTask(e.obj.alias, e.obj.name, e.obj.count, e.obj.users, e.obj.subcount, e.obj.subusers);
 			if(e.obj.alias == "start"){
-				$("#txt_alias").prop("disabled", true);
-				$("#txt_count").val("1").prop("disabled", true);
 			}else if(e.obj.alias == "end"){
-				$("#txt_alias").prop("disabled", true);
-				$("#txt_count").val("1").prop("disabled", true);
-				$("#txt_users").val("").prop("disabled", true);
 			}else{
 				$("#btn_delete").prop("disabled", false).val("删除任务");
 			}
@@ -227,6 +241,8 @@ $(function(){
 			$dswork.flow.p.o.name = o.name;
 			$dswork.flow.p.o.count = o.count;
 			$dswork.flow.p.o.users = o.users;
+			$dswork.flow.p.o.subcount = o.subcount;
+			$dswork.flow.p.o.subusers = o.subusers;
 			$dswork.flow.p.o.redraw();
 		}
 	};
@@ -234,6 +250,8 @@ $(function(){
 	$("#txt_name").keyup(function(){changeTask();}).mouseup(function(){changeTask();});
 	$("#txt_count").keyup(function(){changeTask();}).mouseup(function(){changeTask();});
 	$("#txt_users").keyup(function(){changeTask();}).mouseup(function(){changeTask();});
+	$("#txt_subcount").keyup(function(){changeTask();}).mouseup(function(){changeTask();});
+	$("#txt_subusers").keyup(function(){changeTask();}).mouseup(function(){changeTask();});
 	var changeLine = function(){if($dswork.flow.p.o instanceof $dswork.flow.MyLine){
 		var o = $f.getLine();
 		$dswork.flow.p.o.forks = o.forks;
@@ -250,6 +268,8 @@ $(function(){
 			node.name = o.name;
 			node.count = o.count;
 			node.users = o.users;
+			node.subcount = o.subcount;
+			node.subusers = o.subusers;
 			node.y = 25;
 			node.flow = $dswork.flow.p.flow;
 			node.toDom();

@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="config"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork.sso"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork.sso.authfilter"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="dswork.sso"/>
-	<classpathentry kind="src" path="dswork.sso.authfilter"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/json/gson/gson-2.8.0.jar" sourcepath="C:/Users/skey/.m2/repository/com/google/code/gson/gson/2.8.0/gson-2.8.0-sources.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/common/log/log4j2/log4j-api-2.3.jar">
@@ -34,10 +29,11 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/Workspaces/MySpace/dswork/Lib/common/log/slf4j-api-1.7.25.jar">
+	<classpathentry kind="lib" path="/Lib/common/log/slf4j-api-1.7.25.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/gson-2.8.5.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

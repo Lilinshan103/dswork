@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="DsWorkJava">
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.config"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.core"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.mvc"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.ognl"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.spring"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.web"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/org.hibernate.dialect"/>
         <wb-resource deploy-path="/" source-path="/web"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.http"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.cs"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.test"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.jdbc"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.analyzer"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.html"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.webio"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.flow"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.builder"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.ee"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-config"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-core"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-analyzer"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-builder"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-cs"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-flow"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-html"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-http"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-jdbc"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-mvc"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-ognl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-spring"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-web"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-webio"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-ee"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-parent"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-sso"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork-sso-authfilter"/>
         <property name="context-root" value="DsWorkJava"/>
         <property name="java-output-path" value="/DsWorkJava/web/WEB-INF/classes"/>
     </wb-module>

@@ -28,11 +28,11 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">名称</td>
-		<td class="form_input"><input type="text" name="name" dataType="Name" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="name" datatype="Name" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">数字标识</td>
-		<td class="form_input"><input type="text" name="alias" dataType="Integer" maxlength="10" value="" /></td>
+		<td class="form_input"><input type="text" name="alias" datatype="Integer" maxlength="10" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">扩展信息</td>
@@ -61,7 +61,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <div style="display:none;">
 <table id="cloneTable">
 	<tr class="list">
-		<td><input name="ralias" type="text" dataType="Require" maxlength="100" title="示例：0" /></td>
+		<td><input name="ralias" type="text" datatype="Require" maxlength="100" title="示例：0" /></td>
 		<td><input name="rname" type="text" maxlength="100" title="示例：系统用户" /></td>
 		<td><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>

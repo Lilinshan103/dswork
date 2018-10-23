@@ -6,8 +6,8 @@
 		<param name="frame" value="dswork" />
 		<param name="developer" value="无名氏" />
 	</params>
-	<builds templatename="mvc" rootpath="E:/Workspaces/MySpace/temp6" src="src" web="web" url="jdbc:mysql://myserver:3306/demo?characterEncoding=UTF-8&amp;useSSL=false&amp;allowMultiQueries=true&amp;user=demo&amp;password=demo">
-		<build namespace="/jwzz" module="/manage/demo" table="DEMO" model="" comment="" />
+	<builds templatename="mvc" rootpath="E:/Workspaces/MySpace/temp" src="src" web="web" url="jdbc:mysql://myserver:3306/demo?characterEncoding=UTF-8&amp;useSSL=false&amp;allowMultiQueries=true&amp;user=demo&amp;password=demo@DB321">
+		<build namespace="testwork" module="/manage/demo" table="DEMO" model="" comment="mybatis" />
 	</builds>
 	<templates>
 		<template name="c#"  viewpath="/csharp/idao.ftl"         path="/{src}/Dao/{model}Dao.cs" comment="ibatisnet" />
@@ -34,13 +34,13 @@
 		<template name="jsp" viewpath="/java/jsp/upd2.ftl"       path="/{web}/{module}/upd{model}2.jsp" />
 		<template name="jsp" viewpath="/java/jsp/del.ftl"        path="/{web}/{module}/del{model}.jsp" />
 
-		<template name="mvc" viewpath="/java/hdao.ftl"           path="/{src}/{namespace}/dao/{model}HbmDao.java" comment="hibernate" />
+		<template name="mvc" viewpath="/java/hdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="hibernate" />
 		<template name="mvc" viewpath="/java/hmapper.ftl"        path="/{src}/{namespace}/mapper/{model}.hbm.xml" comment="hibernate" />
 		<template name="mvc" viewpath="/java/mdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="mybatis" />
 		<template name="mvc" viewpath="/java/mmapper.ftl"        path="/{src}/{namespace}/mapper/{model}Dao.map.xml" comment="mybatis" />
 		<template name="mvc" viewpath="/java/model.ftl"          path="/{src}/{namespace}/model/{model}.java" />
-		<template name="mvc" viewpath="/java/service.ftl"        path="/{src}/{namespace}/service/{model}Service.java" />
-		<template name="mvc" viewpath="/java/mvc/controller.ftl" path="/{src}/{namespace}/controller/{model}Controller.java" />
+		<template name="mvc" viewpath="/java/mvc/service.ftl"    path="/{src}/{namespace}/service/{moduleUpperCamel}Service.java" />
+		<template name="mvc" viewpath="/java/mvc/controller.ftl" path="/{src}/{namespace}/controller/{moduleUpperCamel}Controller.java" />
 		<template name="mvc" viewpath="/java/mvc/get.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/get{model}.jsp" />
 		<template name="mvc" viewpath="/java/mvc/getById.ftl"    path="/{web}/WEB-INF/view/jsp/{module}/get{model}ById.jsp" />
 		<template name="mvc" viewpath="/java/mvc/add.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/add{model}.jsp" />

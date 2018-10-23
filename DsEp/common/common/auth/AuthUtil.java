@@ -90,7 +90,7 @@ public class AuthUtil
 					password = EncryptUtil.encryptMd5(password).toLowerCase();
 					if(password.equalsIgnoreCase(loginUser.getPassword().toLowerCase()))
 					{
-						setLoginUserInfo(loginUser);
+						setLoginUserInfo(this.request, loginUser);
 						return true;
 					}
 				}
@@ -249,9 +249,9 @@ public class AuthUtil
 	/**
 	 * 设置当前的用户登录信息；
 	 */
-	private void setLoginUserInfo(Auth user)
+	public static void setLoginUserInfo(HttpServletRequest request, Auth user)
 	{
-		this.request.getSession().setAttribute(SessionName_LoginUser, user);
+		request.getSession().setAttribute(SessionName_LoginUser, user);
 	}
 
 	/**

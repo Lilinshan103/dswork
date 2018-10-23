@@ -17,12 +17,12 @@ public class DsWebssoUserDao extends BaseDao<DsWebssoUser, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsWebssoUser.class;
+		return DsWebssoUserDao.class;
 	}
 
-	public DsWebssoUser getByUseraccount(String useraccount)
+	public DsWebssoUser getBySsoaccount(String ssoaccount)
 	{
-		return (DsWebssoUser) executeSelect("selectByUseraccount", useraccount);
+		return (DsWebssoUser) executeSelect("selectBySsoaccount", ssoaccount);
 	}
 
 	public DsWebssoUser getByOpenid(DsWebssoUser po)
@@ -31,21 +31,7 @@ public class DsWebssoUserDao extends BaseDao<DsWebssoUser, Long>
 		map.put("openidqq", po.getOpenidqq());
 		map.put("openidalipay", po.getOpenidalipay());
 		map.put("openidwechat", po.getOpenidwechat());
+		map.put("openidweibo", po.getOpenidweibo());
 		return (DsWebssoUser) executeSelect("selectByOpenid", map);
-	}
-
-	public DsWebssoUser getByOpenidqq(String openid)
-	{
-		return (DsWebssoUser) executeSelect("selectByOpenidqq", openid);
-	}
-
-	public DsWebssoUser getByOpenidalipay(String openid)
-	{
-		return (DsWebssoUser) executeSelect("selectByOpenidalipay", openid);
-	}
-
-	public DsWebssoUser getByOpenidwechat(String openid)
-	{
-		return (DsWebssoUser) executeSelect("selectByOpenidwechat", openid);
 	}
 }

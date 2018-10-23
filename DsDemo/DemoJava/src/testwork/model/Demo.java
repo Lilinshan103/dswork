@@ -2,15 +2,16 @@
  * 样例Model，改造了试验性set返回值，测试中
  */
 package testwork.model;
+
 public class Demo
 {
-	//主键
+	// 主键
 	private Long id = 0L;
-	//标题
+	// 标题
 	private String title = "";
-	//内容
+	// 内容
 	private String content = "";
-	//创建时间
+	// 创建时间
 	private String foundtime = "";
 
 	public Long getId()

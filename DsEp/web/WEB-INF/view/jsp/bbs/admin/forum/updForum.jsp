@@ -39,7 +39,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</c:if>
 	<tr>
 		<td class="form_title">${po.pid==0?"分区":"版块"}名称</td>
-		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="${fn:escapeXml(po.name)}" /></td>
+		<td class="form_input"><input type="text" name="name" maxlength="100" datatype="Require" value="${fn:escapeXml(po.name)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">摘要</td>
@@ -47,7 +47,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">排序</td>
-		<td class="form_input"><input type="text" name="seq" maxlength="4" dataType="Integer" value="${fn:escapeXml(po.seq)}" /></td>
+		<td class="form_input"><input type="text" name="seq" maxlength="4" datatype="Integer" value="${fn:escapeXml(po.seq)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">状态</td>

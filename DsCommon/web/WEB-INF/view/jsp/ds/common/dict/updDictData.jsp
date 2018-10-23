@@ -27,11 +27,11 @@ $dswork.callback = function(){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">标识</td>
-		<td class="form_input"><input type="text" name="alias" dataType="Char" maxlength="128" value="${fn:escapeXml(po.alias)}" /></td>
+		<td class="form_input"><input type="text" name="alias" datatype="Char" maxlength="128" value="${fn:escapeXml(po.alias)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">名称</td>
-		<td class="form_input"><input type="text" name="label" dataType="Require" maxlength="100" value="${fn:escapeXml(po.label)}" /></td>
+		<td class="form_input"><input type="text" name="label" datatype="Require" maxlength="100" value="${fn:escapeXml(po.label)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">备注</td>

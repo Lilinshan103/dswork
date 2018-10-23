@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Implementation-Title: dswork-ognl
+Implementation-Version: 8.8.3
+Built-By: skey(249725997@qq.com)
+X-Compile-Source-JDK: 1.8
+Created-By: 1.8.0_181 (Oracle Corporation)
+Build-Jdk: 1.8.0_181

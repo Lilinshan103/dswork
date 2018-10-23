@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans 
+	        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	   default-autowire="byName" default-lazy-init="false">
+	<bean id="masterDataSourceCommon" class="${dswork.datasource:dswork.config.BasicDataSource}" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.common.driverClassName:dswork.jdbc.DriverSpy}" />
+		<property name="url" value="${jdbc.common.url}" />
+		<property name="username" value="${jdbc.common.username}" />
+		<property name="password" value="${jdbc.common.password}" />
+		
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.common.minEvictableIdleTimeMillis:900000}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.common.timeBetweenEvictionRunsMillis:900000}" />
+		
+		<property name="initialSize" value="${jdbc.common.initialSize:1}" />
+		<property name="minIdle" value="${jdbc.common.minIdle:1}" />
+		<property name="maxIdle" value="${jdbc.common.maxIdle:50}" />
+		<property name="maxActive" value="${jdbc.common.maxActive:50}" />
+		<property name="maxWait" value="${jdbc.common.maxWait:60000}" />
+		
+		<property name="validationQuery" value="${jdbc.common.validationQuery:select 'x'}" />
+		<property name="testWhileIdle" value="${jdbc.common.testWhileIdle:true}" />
+		<property name="testOnBorrow" value="${jdbc.common.testOnBorrow:false}" />
+		<property name="testOnReturn" value="${jdbc.common.testOnReturn:false}" />
+		
+		<property name="poolPreparedStatements" value="${jdbc.common.poolPreparedStatements:false}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.common.maxPoolPreparedStatementPerConnectionSize:-1}" />
+		
+		<property name="filters" value="${jdbc.common.filters:}" />
+	</bean>
+	<bean id="slaveDataSourceCommon" class="${dswork.datasource:dswork.config.BasicDataSource}" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.common.read.driverClassName:${jdbc.common.driverClassName:dswork.jdbc.DriverSpy}}" />
+		<property name="url" value="${jdbc.common.read.url}" />
+		<property name="username" value="${jdbc.common.read.username:${jdbc.common.username}}" />
+		<property name="password" value="${jdbc.common.read.password:${jdbc.common.password}}" />
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.common.read.minEvictableIdleTimeMillis:${jdbc.common.minEvictableIdleTimeMillis:900000}}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.common.read.timeBetweenEvictionRunsMillis:${jdbc.common.timeBetweenEvictionRunsMillis:900000}}" />
+		
+		<property name="initialSize" value="${jdbc.common.read.initialSize:${jdbc.common.initialSize:1}}" />
+		<property name="minIdle" value="${jdbc.common.read.minIdle:${jdbc.common.minIdle:1}}" />
+		<property name="maxIdle" value="${jdbc.common.read.maxIdle:${jdbc.common.maxIdle:50}}" />
+		<property name="maxActive" value="${jdbc.common.read.maxActive:${jdbc.common.maxActive:50}}" />
+		<property name="maxWait" value="${jdbc.common.read.maxWait:${jdbc.common.maxWait:60000}}" />
+		
+		<property name="validationQuery" value="${jdbc.common.read.validationQuery:${jdbc.common.validationQuery:select 'x'}}" />
+		<property name="testWhileIdle" value="${jdbc.common.read.testWhileIdle:${jdbc.common.testWhileIdle:true}}" />
+		<property name="testOnBorrow" value="${jdbc.common.read.testOnBorrow:${jdbc.common.testOnBorrow:false}}" />
+		<property name="testOnReturn" value="${jdbc.common.read.testOnReturn:${jdbc.common.testOnReturn:false}}" />
+		
+		<property name="poolPreparedStatements" value="${jdbc.common.read.poolPreparedStatements:${jdbc.common.poolPreparedStatements:false}}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.common.read.maxPoolPreparedStatementPerConnectionSize:${jdbc.common.maxPoolPreparedStatementPerConnectionSize:-1}}" />
+		
+		<property name="filters" value="${jdbc.common.read.filters:${jdbc.common.filters:}}" />
+	</bean>
+	<bean id="dataSourceCommon" class="dswork.core.datasource.DataSource">
+		<property name="masterDataSource" ref="masterDataSourceCommon" />
+		<property name="slaveDataSource" ref="slaveDataSourceCommon" />
+	</bean>
+	<bean id="sqlSessionFactoryCommon" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="plugins">
+			<list>
+				<bean class="dswork.core.mybatis.OffsetLimitInterceptor">
+	   				<property name="properties">
+	   					<props>
+							<prop key="name">${jdbc.common.dialect.name:mysql}</prop>
+						</props>
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="typeHandlers">
+			<list>
+				<bean class="dswork.core.mybatis.LikeTypeHandler" />
+				<bean class="dswork.core.mybatis.LikePrefixTypeHandler" />
+			</list>
+		</property>
+		<property name="typeAliases">
+			<list>
+				<value>dswork.core.mybatis.LikeTypeHandler</value>
+				<value>dswork.core.mybatis.LikePrefixTypeHandler</value>
+			</list>
+		</property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:/dswork/common/mapper/DsCommonDaoCommon*.map.xml</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="dataSourceCommon"/>
+	</bean>
+	<bean id="sqlSessionTemplateCommon" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryCommon" />
+	</bean>
+</beans>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off" monitorInterval="3">
+	<Appenders>
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss,SSS} [%p] %c - %m%n" />
+		</Console>
+		<RollingFile name="logfile" fileName="./logs/log4j.log" filePattern="./logs/log4j%d{yyyy-MM-dd}-%i.txt.gz" ignoreExceptions="false">
+			<PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss,SSS} [%p] %c - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
+				<SizeBasedTriggeringPolicy size="5 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<logger level="INFO"  additivity="false" name="jdbc.sqlonly"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="WARN"  additivity="false" name="org.mbatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="WARN"  additivity="false" name="org.apache.ibatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="WARN"  additivity="false" name="org.springframework"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="FATAL" additivity="false" name="org.hibernate"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<Root level="WARN"><AppenderRef ref="logfile" /><AppenderRef ref="stdout" /></Root>
+	</Loggers>
+</Configuration>

@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+<repositories>
+	<repository><id>repomaven</id><url>http://repo.maven.apache.org/maven2/</url><releases><enabled>true</enabled></releases><snapshots><enabled>true</enabled></snapshots></repository>
+	<repository><id>mvnrepository</id><url>http://mvnrepository.com/artifact/</url><releases><enabled>true</enabled></releases><snapshots><enabled>true</enabled></snapshots></repository>
+</repositories>
+
+<modelVersion>4.0.0</modelVersion>
+<groupId>dswork</groupId>
+<artifactId>DsWorkJava</artifactId>
+<packaging>pom</packaging>
+<version>0.0.0-SNAPSHOT</version>
+<name>DsWorkJava</name>
+<url>https://github.com/skeychen/dswork</url>
+
+<properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	
+	<v.commons.collections>3.2.2</v.commons.collections>
+	<v.commons.io>2.5</v.commons.io>
+	<v.commons.lang>2.6</v.commons.lang>
+	<v.commons.pool>1.6</v.commons.pool>
+	<v.commons.dbcp>1.4</v.commons.dbcp>
+	<v.commons.logging>1.2</v.commons.logging>
+	
+	<v.log4j>2.3</v.log4j>
+	<v.slf4j>1.7.25</v.slf4j>
+	<v.aopalliance>1.0</v.aopalliance>
+	<v.jstl>1.2</v.jstl>
+	<v.servlet-api>3.0.1</v.servlet-api>
+	<v.spring>4.3.18.RELEASE</v.spring>
+	<v.mybatis>3.4.6</v.mybatis>
+	<v.mybatis.spring>1.3.2</v.mybatis.spring>
+	<v.gson>2.8.5</v.gson>
+	
+	<v.dswork-javaweb>0.0.0-SNAPSHOT</v.dswork-javaweb>
+	
+	<v.hibernate.antlr>2.7.7</v.hibernate.antlr>
+	<v.hibernate.common>4.0.2.Final</v.hibernate.common>
+	<v.hibernate.core>4.2.21.Final</v.hibernate.core>
+	<v.hibernate.javax.persistence>1.0.1.Final</v.hibernate.javax.persistence>
+	<v.hibernate.javassist>3.18.1-GA</v.hibernate.javassist>
+	<v.hibernate.jboss.logging>3.1.0.GA</v.hibernate.jboss.logging>
+	<v.hibernate.jboss-transaction-api>1.0.1.Final</v.hibernate.jboss-transaction-api>
+</properties>
+
+<dependencies>
+	<dependency><groupId>commons-collections</groupId><artifactId>commons-collections</artifactId><version>${v.commons.collections}</version></dependency>
+	<dependency><groupId>commons-io         </groupId><artifactId>commons-io         </artifactId><version>${v.commons.io}</version></dependency>
+	<dependency><groupId>commons-lang       </groupId><artifactId>commons-lang       </artifactId><version>${v.commons.lang}</version></dependency>
+	<dependency><groupId>commons-pool       </groupId><artifactId>commons-pool       </artifactId><version>${v.commons.pool}</version></dependency>
+	<dependency><groupId>commons-dbcp       </groupId><artifactId>commons-dbcp       </artifactId><version>${v.commons.dbcp}</version></dependency>
+	<dependency><groupId>commons-logging    </groupId><artifactId>commons-logging    </artifactId><version>${v.commons.logging}</version></dependency>
+
+	<dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-api       </artifactId><version>${v.log4j}</version></dependency>
+	<dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-web       </artifactId><version>${v.log4j}</version></dependency>
+	<dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core      </artifactId><version>${v.log4j}</version></dependency>
+	<dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-slf4j-impl</artifactId><version>${v.log4j}</version></dependency>
+	
+	<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>${v.slf4j}</version></dependency>
+	
+	<dependency><groupId>aopalliance</groupId><artifactId>aopalliance</artifactId><version>${v.aopalliance}</version></dependency>
+	
+	<dependency><groupId>javax.servlet</groupId><artifactId>jstl</artifactId><version>${v.jstl}</version></dependency>
+	<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>${v.servlet-api}</version></dependency>
+	
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-aop       </artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-beans     </artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-context   </artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-core      </artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-expression</artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-jdbc      </artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-tx        </artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-web       </artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-webmvc    </artifactId><version>${v.spring}</version></dependency>
+	<dependency><groupId>org.springframework</groupId><artifactId>spring-orm       </artifactId><version>${v.spring}</version></dependency>
+	
+	<dependency><groupId>org.mybatis</groupId><artifactId>mybatis       </artifactId><version>${v.mybatis}       </version></dependency>
+	<dependency><groupId>org.mybatis</groupId><artifactId>mybatis-spring</artifactId><version>${v.mybatis.spring}</version></dependency>
+	
+	<dependency><groupId>com.google.code.gson</groupId><artifactId>gson</artifactId><version>${v.gson}</version></dependency>
+	
+	<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core  </artifactId><version>${v.dswork-javaweb}</version></dependency>
+	<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-http  </artifactId><version>${v.dswork-javaweb}</version></dependency>
+	<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-jdbc  </artifactId><version>${v.dswork-javaweb}</version></dependency>
+	<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-ognl  </artifactId><version>${v.dswork-javaweb}</version></dependency>
+	<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-spring</artifactId><version>${v.dswork-javaweb}</version></dependency>
+	<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-web   </artifactId><version>${v.dswork-javaweb}</version></dependency>
+	<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-config</artifactId><version>${v.dswork-javaweb}</version></dependency>
+	<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-mvc   </artifactId><version>${v.dswork-javaweb}</version></dependency>
+	
+	<dependency><groupId>antlr                           </groupId><artifactId>antlr                         </artifactId><version>${v.hibernate.antlr}</version></dependency>
+	<dependency><groupId>org.hibernate.common            </groupId><artifactId>hibernate-commons-annotations </artifactId><version>${v.hibernate.common}</version></dependency>
+	<dependency><groupId>org.hibernate                   </groupId><artifactId>hibernate-core                </artifactId><version>${v.hibernate.core}</version></dependency>
+	<dependency><groupId>org.hibernate.javax.persistence </groupId><artifactId>hibernate-jpa-2.0-api         </artifactId><version>${v.hibernate.javax.persistence}</version></dependency>
+	<dependency><groupId>org.javassist                   </groupId><artifactId>javassist                     </artifactId><version>${v.hibernate.javassist}</version></dependency>
+	<dependency><groupId>org.jboss.logging               </groupId><artifactId>jboss-logging                 </artifactId><version>${v.hibernate.jboss.logging}</version></dependency>
+	<dependency><groupId>org.jboss.spec.javax.transaction</groupId><artifactId>jboss-transaction-api_1.1_spec</artifactId><version>${v.hibernate.jboss-transaction-api}</version></dependency>
+	
+</dependencies>
+
+<build>
+	<finalName>DsWorkJava</finalName>
+</build>
+</project>

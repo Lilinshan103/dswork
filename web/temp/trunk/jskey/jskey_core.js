@@ -1095,7 +1095,7 @@
 		"Filename":{"v":"this._Filename(x.value)", "msg":"不能为空,且不能包含下列字符 \\ \/ \: \* \? \" < >"},
 		"Filter":{"v":"this._Filter(x.value, x.getAttribute('accept'))", "msg":""},
 		"Function":{"v":"this._Function(x.value, x.getAttribute('fn'))", "msg":""},
-		"Group":{"v":"this._Group(x.getAttribute('name'), x.getAttribute('min'), x.getAttribute('max'))", "msg":""},
+		"Group":{"v":"this._Group(x.getAttribute('name'), x.getAttribute('min'), x.getAttribute('max'))", "msg":""},// 最少选择几个
 		"IdCard":{"v":"this._IdCard(x.value)", "msg":"身份证号码错误"},
 		"Limit":{"v":"this._Limit(x.value.length, x.getAttribute('min'), x.getAttribute('max'))", "msg":""},
 		"LimitB":{"v":"this._Limit(this._LenB(x.value), x.getAttribute('min'), x.getAttribute('max'))", "msg":""},
@@ -1121,7 +1121,15 @@
 				var _o = (inputID.length > 0 ? $jskey.$(inputID) : inputObject);
 				this.$Clear(_o);// 尝试删除验证提示
 				var _dt = _o.getAttribute("datatype") || _o.getAttribute("dataType");
-				if(typeof (_dt) == "object" || typeof (this[_dt]) == "undefined")
+				if(typeof (_dt) == "object")
+				{
+					return m;
+				}
+				if(_dt.length > 0 && _dt.charAt(0) == "!")
+				{
+					_dt = _dt.substring(1);
+				}
+				if(typeof (this[_dt]) == "undefined")
 				{
 					return m;
 				}
@@ -1146,7 +1154,15 @@
 					if(_t[i].getAttribute)
 					{
 						_dt = _t[i].getAttribute("datatype") || _t[i].getAttribute("dataType");
-						if(typeof (_dt) == "object" || typeof (this[_dt]) == "undefined")
+						if(typeof (_dt) == "object")
+						{
+							continue;
+						}
+						if(_dt.length > 0 && _dt.charAt(0) == "!")
+						{
+							_dt = _dt.substring(1);
+						}
+						if(typeof (this[_dt]) == "undefined")
 						{
 							continue;
 						}
@@ -1180,7 +1196,21 @@
 			{
 				var v = obj.arr[i];
 				var _dt = v.getAttribute("datatype") || v.getAttribute("dataType");
-				if(typeof (_dt) == "object" || typeof (this[_dt]) == "undefined" || v.JskeyValidatorTrans){continue;}
+				if(typeof(_dt) == "object")
+				{
+					continue;
+				}
+				_dt = _dt + "";
+				v.setAttribute("datatype", _dt);// 放回去
+				if(_dt.length > 0 && _dt.charAt(0) == "!")
+				{
+					_dt = _dt.substring(1);// 截掉!
+				}
+				if(_dt.length == 0 || typeof(this[_dt]) == "undefined")
+				{
+					continue;
+				}
+				if(v.JskeyValidatorTrans){continue;}
 				v.JskeyValidatorTrans = true;
 				v.JskeyValidatorBlur = v.onblur;
 				v.JskeyValidatorFocus = v.onfocus;
@@ -1256,13 +1286,15 @@
 			this.$ErrorObj[0] = obj;
 			for(var i = 0;i < count;i++)
 			{
-				var x=obj.arr[i];
-				var _dt = x.getAttribute("datatype") || x.getAttribute("dataType");
-				if(typeof (_dt) == "object" || typeof (this[_dt]) == "undefined")
-				{
-					continue;
+				var x = obj.arr[i];
+				var require = true;
+				var _dt = x.getAttribute("datatype");
+				_dt = _dt + "";
+				if(_dt.charAt(0) == "!"){
+					_dt = _dt.substring(1);// 截掉!
+					require = false;
 				}
-				if(x.getAttribute("require") == "false" && x.value == "")
+				if((!require || x.getAttribute("require") == "false") && x.value == "")
 				{
 					continue;
 				}

@@ -53,7 +53,7 @@ $(function(){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">用户账号列表</td>
+		<td class="title">用户列表</td>
 		<td class="menuTool">
 			<a class="insert" href="addUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
@@ -89,20 +89,20 @@ $(function(){
 	</tr>
 <c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
-		<td><input name="keyIndex" type="checkbox" value="${d.id}" ${'admin'==d.account?'style="display:none;" disabled="disabled"':''}/></td>
-		<td class="menuTool" keyIndex="${d.id}" v="${'admin'==d.account?'true':''}">&nbsp;</td>
+		<td><input name="keyIndex" type="checkbox" value="${d.id}" ${d.id<0?'style="display:none;" disabled="disabled"':''}/></td>
+		<td class="menuTool" keyIndex="${d.id}" v="${d.id<0?'true':''}">&nbsp;</td>
 		<td>${fn:escapeXml(d.typename)}</td>
 		<td style="text-align:left;">&nbsp;${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
 		<td>${fn:escapeXml(d.orgpname)}</td>
 		<td>${fn:escapeXml(d.orgname)}</td>
 		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool">
-			<a ${'admin'==d.account?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
-			<c:if test="${'admin'!=d.account}">
+			<a ${d.id<0?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
+			<c:if test="${'root'!=d.account && 'admin'!=d.account}">
 				<a class="update" href="updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
 			</c:if>
 			<a class="user" href="updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
-			<c:if test="${'admin'==d.account}"><a class="select" href="getUserById.htm?xtype=${fn:escapeXml(param.xtype)}&keyIndex=${d.id}">明细</a></c:if>
+			<c:if test="${'root'==d.account||'admin'==d.account}"><a class="select" href="getUserById.htm?xtype=${fn:escapeXml(param.xtype)}&keyIndex=${d.id}">明细</a></c:if>
 		</td>
 	</tr>
 </c:forEach>

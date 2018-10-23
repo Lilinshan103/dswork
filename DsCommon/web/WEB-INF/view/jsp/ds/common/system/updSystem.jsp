@@ -31,15 +31,15 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">应用密码</td>
-		<td class="form_input"><input type="text" id="password" name="password" style="width:100px;" dataType="Char" maxlength="32" value="${fn:escapeXml(po.password)}" /></td>
+		<td class="form_input"><input type="text" id="password" name="password" style="width:100px;" datatype="Char" maxlength="32" value="${fn:escapeXml(po.password)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">名称</td>
-		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" dataType="RequireTrim" maxlength="100" value="${fn:escapeXml(po.name)}" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" datatype="RequireTrim" maxlength="100" value="${fn:escapeXml(po.name)}" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">网络地址</td>
-		<td class="form_input"><input type="text" id="domainurl" name="domainurl" style="width:300px;" require="false" dataType="Url" maxlength="100" value="${fn:escapeXml(po.domainurl)}" /></td>
+		<td class="form_input"><input type="text" id="domainurl" name="domainurl" style="width:300px;" datatype="!Url" maxlength="100" value="${fn:escapeXml(po.domainurl)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">根路径</td>

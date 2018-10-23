@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFlow">
 	insert into DS_FLOW
-	(ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS, FLOWXML)
+	(ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS, FLOWXML, DATATABLE)
 	values
-	(#{id}, #{categoryid}, LOWER(#{alias}), #{vnum}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{name}, #{status}, #{flowxml})
+	(#{id}, #{categoryid}, LOWER(#{alias}), #{vnum}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{name}, #{status}, #{flowxml}, #{datatable})
 </insert>
 
 <delete id="delete">
@@ -21,7 +21,7 @@
 </update>
 
 <update id="update" parameterType="dswork.common.model.DsCommonFlow">
-	update DS_FLOW set NAME=#{name}, FLOWXML=#{flowxml} where ID=#{id}
+	update DS_FLOW set NAME=#{name}, FLOWXML=#{flowxml}, DATATABLE=#{datatable} where ID=#{id}
 </update>
 
 <update id="updateStatus" parameterType="dswork.common.model.DsCommonFlow">
@@ -37,10 +37,11 @@
 	<result property="name" column="NAME" />
 	<result property="status" column="STATUS" />
 	<result property="flowxml" column="FLOWXML" />
+	<result property="datatable" column="DATATABLE" />
 </resultMap>
 
 <sql id="columns">
-	ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS, FLOWXML
+	ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS, FLOWXML, DATATABLE
 </sql>
 
 <sql id="dynamicWhere">

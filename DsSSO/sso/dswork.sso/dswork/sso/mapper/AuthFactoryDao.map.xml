@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="dswork.sso.dao.AuthFactoryDao">
+
+<sql id="columnsSystem">
+	s.ID as S_ID, s.NAME as S_NAME, s.ALIAS as S_ALIAS, s.PASSWORD as S_PASSWORD, s.MEMO as S_MEMO, s.DOMAINURL as S_DOMAINURL, s.ROOTURL as S_ROOTURL, s.MENUURL as S_MENUURL, s.STATUS as S_STATUS
+</sql>
+<resultMap id="resultSystem" type="dswork.sso.model.ISystem">
+	<id property="id" column="S_ID" />
+	<result property="name" column="S_NAME" />
+	<result property="alias" column="S_ALIAS" />
+	<result property="password" column="S_PASSWORD" />
+	<result property="memo" column="S_MEMO" />
+	<result property="domainurl" column="S_DOMAINURL" />
+	<result property="rooturl" column="S_ROOTURL" />
+	<result property="menuurl" column="S_MENUURL" />
+	<result property="status" column="S_STATUS" />
+</resultMap>
+
+<sql id="columnsOrg">
+	o.ID as O_ID, o.PID as O_PID, o.NAME as O_NAME, o.DUTYSCOPE as O_DUTYSCOPE, o.MEMO as O_MEMO, o.STATUS as O_STATUS, o.SEQ as O_SEQ
+</sql>
+<resultMap id="resultOrg" type="dswork.sso.model.IOrg">
+	<id property="id" column="O_ID" />
+	<result property="pid" column="O_PID" />
+	<result property="name" column="O_NAME" />
+	<result property="dutyscope" column="O_DUTYSCOPE" />
+	<result property="memo" column="O_MEMO" />
+	<result property="status" column="O_STATUS" />
+	<result property="seq" column="O_SEQ" />
+</resultMap>
+
+<sql id="columnsUser">
+	u.ID as U_ID, u.ACCOUNT as U_ACCOUNT, u.NAME as U_NAME, u.IDCARD as U_IDCARD, u.STATUS as U_STATUS, u.EMAIL as U_EMAIL, u.MOBILE as U_MOBILE, u.PHONE as U_PHONE, u.WORKCARD as U_WORKCARD, u.CREATETIME as U_CREATETIME, u.ORGPID as U_ORGPID, u.ORGID as U_ORGID, u.TYPE as U_TYPE, u.TYPENAME as U_TYPENAME, u.EXALIAS as U_EXALIAS, u.EXNAME as U_EXNAME 
+</sql>
+<resultMap id="resultUser" type="dswork.sso.model.IUser">
+	<id property="id" column="U_ID" />
+	<result property="account" column="U_ACCOUNT" />
+	<result property="name" column="U_NAME" />
+	<result property="idcard" column="U_IDCARD" />
+	<result property="status" column="U_STATUS" />
+	<result property="email" column="U_EMAIL" />
+	<result property="mobile" column="U_MOBILE" />
+	<result property="phone" column="U_PHONE" />
+	<result property="workcard" column="U_WORKCARD" />
+	<result property="createtime" column="U_CREATETIME" />
+	<result property="orgpid" column="U_ORGPID" />
+	<result property="orgid" column="U_ORGID" />
+	<result property="type" column="U_TYPE" />
+	<result property="typename" column="U_TYPENAME" />
+	<result property="exalias" column="U_EXALIAS" />
+	<result property="exname" column="U_EXNAME" />
+</resultMap>
+<sql id="columnsLoginUser">
+	<include refid="columnsUser" />, u.PASSWORD as U_PASSWORD, u.CAKEY as U_CAKEY
+</sql>
+<resultMap id="resultLoginUser" type="dswork.sso.model.LoginUser" extends="dswork.sso.dao.AuthFactoryDao.resultUser">
+	<result property="password" column="U_PASSWORD" />
+	<result property="cakey" column="U_CAKEY" />
+</resultMap>
+
+<sql id="columnsFunc">
+	f.ID as F_ID, f.PID as F_PID, f.SYSTEMID as F_SYSTEMID, f.NAME F_NAME, f.ALIAS as F_ALIAS, f.URI as F_URI, f.IMG as F_IMG, f.STATUS as F_STATUS, f.SEQ as F_SEQ, f.MEMO as F_MEMO, f.RESOURCES as F_RESOURCES
+</sql>
+<resultMap id="resultFunc" type="dswork.sso.model.IFunc">
+	<id property="id" column="F_ID" />
+	<result property="pid" column="F_PID" />
+	<result property="systemid" column="F_SYSTEMID" />
+	<result property="name" column="F_NAME" />
+	<result property="alias" column="F_ALIAS" />
+	<result property="uri" column="F_URI" />
+	<result property="img" column="F_IMG" />
+	<result property="status" column="F_STATUS" />
+	<result property="seq" column="F_SEQ" />
+	<result property="memo" column="F_MEMO" />
+	<result property="resources" column="F_RESOURCES" />
+</resultMap>
+
+
+<insert id="insert">
+	insert into DS_COMMON_LOGIN
+	(ID, LOGINTIME, LOGOUTTIME, TICKET, IP, ACCOUNT, NAME, STATUS)
+	values
+	(#{id}, #{logintime}, #{logouttime}, #{ticket}, #{ip}, #{account}, #{name}, #{status})
+</insert>
+<update id="update">
+	update DS_COMMON_LOGIN set LOGOUTTIME=#{logouttime}, TIMEOUTTIME=#{timeouttime}, PWDTIME=#{pwdtime} where TICKET=#{ticket}
+</update>
+<update id="updatePassword">
+	update DS_COMMON_USER set PASSWORD=#{password} where ACCOUNT=#{account}
+</update>
+<select id="getLoginUserByAccount" resultMap="resultLoginUser" parameterType="String">
+	select <include refid="columnsLoginUser" /> from DS_COMMON_USER u where u.ACCOUNT=LOWER(#{account})
+</select>
+<select id="getLoginUserByCAKEY" resultMap="resultLoginUser" parameterType="String">
+	select <include refid="columnsLoginUser" /> from DS_COMMON_USER u where u.CAKEY=#{cakey}
+</select>
+
+
+
+
+<select id="querySystem" resultMap="resultSystem">
+	select <include refid="columnsSystem" /> from DS_COMMON_SYSTEM s where s.ID&gt;0
+</select>
+<select id="querySystemByAccount" resultMap="resultSystem" parameterType="String">
+	select <include refid="columnsSystem" /> from DS_COMMON_SYSTEM s where s.STATUS=1 and s.ID&gt;0 and s.ID in (
+	  select distinct _r.SYSTEMID from DS_COMMON_ROLE _r where _r.ID in (
+	    select distinct _or.ROLEID from DS_COMMON_ORGROLE _or where _or.ORGID in (
+	      select distinct _uo.ORGID from DS_COMMON_USERORG _uo where _uo.USERID in (
+	        select u.ID from DS_COMMON_USER u where u.ACCOUNT=#{account}
+	      )
+	    )
+	  )
+	)
+	order by s.SEQ
+</select>
+
+<select id="getOrgByOrgid" resultMap="resultOrg" parameterType="String">
+	select <include refid="columnsOrg" /> from DS_COMMON_ORG o where o.ID=#{orgid}
+</select>
+<select id="queryOrgByOrgpid" resultMap="resultOrg">
+	select <include refid="columnsOrg" /> from DS_COMMON_ORG o
+	where <if test="orgpid &gt; 0"> o.PID=#{orgpid} </if><if test="orgpid &lt;= 0"> o.PID is null </if>
+	order by o.STATUS,o.SEQ,o.ID
+</select>
+
+<select id="queryPostByUserId" resultMap="resultOrg" parameterType="String">
+	select <include refid="columnsOrg"/> from DS_COMMON_ORG o
+	left join DS_COMMON_USERORG uo on p.ID=uo.ORGID 
+	where uo.USERID=#{userid}
+</select>
+
+<select id="getUserByAccount" resultMap="resultUser" parameterType="String">
+	select <include refid="columnsUser" /> from DS_COMMON_USER u where u.ACCOUNT=#{account}
+</select>
+<select id="queryUserByPostid" resultMap="resultUser" parameterType="String">
+	select <include refid="columnsUser" /> from DS_COMMON_USERORG uo
+	left join DS_COMMON_USER u on u.ID=uo.USERID
+	where uo.ORGID=#{postid}
+</select>
+<select id="queryUserByOrgPid" resultMap="resultUser" parameterType="String">
+	select <include refid="columnsUser" /> from DS_COMMON_USER u
+	where u.ORGPID=#{orgpid}
+</select>
+<select id="queryUserByOrgId" resultMap="resultUser" parameterType="String">
+	select <include refid="columnsUser" /> from DS_COMMON_USER u
+	where u.ORGID=#{orgid}
+</select>
+
+<select id="queryFuncBySystemid" resultMap="resultFunc" parameterType="String">
+	select <include refid="columnsFunc"/> from DS_COMMON_FUNC f
+	where f.SYSTEMID=#{systemid}
+	order by f.SEQ asc
+</select>
+<select id="getFuncBySystemidAndAccount" resultMap="resultFunc">
+	select <include refid="columnsFunc"/> from DS_COMMON_FUNC f
+	where f.SYSTEMID=#{systemid} and exists
+	(
+		select 'X' from DS_COMMON_ROLEFUNC _rf
+		left join DS_COMMON_ORGROLE _or on _or.ROLEID=_rf.ROLEID
+		where _rf.SYSTEMID=#{systemid} 
+		and _or.ORGID in(
+			select u.ORGPID  from DS_COMMON_USER u where u.ACCOUNT=#{account} and u.ORGPID &gt; 0
+			union
+			select u.ORGID   from DS_COMMON_USER u where u.ACCOUNT=#{account} and u.ORGID &gt; 0
+			union
+			select _ur.ORGID from DS_COMMON_USERORG _ur where _ur.USERID in (select u.ID from DS_COMMON_USER u where u.ACCOUNT=#{account})
+		)
+		and f.ID=_rf.FUNCID
+	)
+	order by f.SEQ asc
+</select>
+<select id="getFuncBySystemidAndOrgid" resultMap="resultFunc">
+	select <include refid="columnsFunc"/> from DS_COMMON_FUNC f
+	where f.SYSTEMID=#{systemid} and exists
+	(
+		select 'X' from DS_COMMON_ROLEFUNC _rf
+		left join DS_COMMON_ORGROLE _or on _or.ROLEID=_rf.ROLEID
+		where _rf.SYSTEMID=#{systemid} and _or.ORGID=#{orgid}
+		and f.ID=_rf.FUNCID
+	)
+</select>
+
+</mapper>

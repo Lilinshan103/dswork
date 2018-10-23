@@ -1,3 +1,0 @@
-在tomcat的server.xml文件中Host标签中间，增加对应的项目路径配置
-<Context docBase="E:\WorkServer\TomcatBase\8080\webapps\www\html\www\html" path="/" reloadable="false"/>
-nginx代理模式的话，则nginx根目录指向\WorkServer\TomcatBase\8080\webapps\www\html\www\html

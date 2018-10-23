@@ -16,7 +16,7 @@ function loaddata(value, objectid, type, ename){
 			for(var i=0; i<a.length; i++){
 				s.append("<label><input name=\"" + ename + "\" type=\"" + type + "\" value=\"" + a[i].id + "\" " + (i==0?"checked":"") + " />"+a[i].name+"</label>");
 			}
-			s.append("<input name=\"" + ename + "\" type=\"" + type + "\" dataType=\"Group\" msg=\"必选\" value=\"\" style=\"display:none;\" />");
+			s.append("<input name=\"" + ename + "\" type=\"" + type + "\" datatype=\"Group\" msg=\"必选\" value=\"\" style=\"display:none;\" />");
 		}else{
 			for(var i=0; i<a.length; i++){
 				var o = $("<option></option>");

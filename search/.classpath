@@ -13,12 +13,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="config/analyzer/extend.dic" kind="src" path="analyzer"/>
-	<classpathentry kind="lib" path="/Lib/module/dswork/dswork.analyzer.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-analyzer.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/dswork.html.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-html.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
@@ -38,7 +38,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/json/gson/gson-2.8.0.jar">
+	<classpathentry kind="lib" path="/Lib/common/gson-2.8.5.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
@@ -53,12 +53,17 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/dswork.core.util.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-core-util.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/Workspaces/MySpace/dswork/Lib/common/log/slf4j-api-1.7.25.jar">
+	<classpathentry kind="lib" path="/Lib/common/log/slf4j-api-1.7.25.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/module/lucene/lucene-analyzers-common-5.5.4.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

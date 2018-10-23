@@ -14,6 +14,14 @@ function refreshData(){
 	parent.$jskey.dialog.returnValue = data;
 }
 refreshData();
+function getModel(m){
+	for(var i = 0; i < data.length; i++){//找到就刷新
+		if(m.id == data[i].id){
+			return data[i];
+		}
+	}
+	return null;
+}
 function setModel(m, type){//type(true增加,false移除)
 	for(var i = 0; i < data.length; i++){
 		if(m.id == data[i].id){

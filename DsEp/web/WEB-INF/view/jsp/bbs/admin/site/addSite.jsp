@@ -27,11 +27,11 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">站点名称</td>
-		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="" /></td>
+		<td class="form_input"><input type="text" name="name" maxlength="100" datatype="Require" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">链接</td>
-		<td class="form_input"><input type="text" name="url" maxlength="100" style="width:400px;" dataType="Require" require="false" value="" /></td>
+		<td class="form_input"><input type="text" name="url" maxlength="100" style="width:400px;" datatype="!Require" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>

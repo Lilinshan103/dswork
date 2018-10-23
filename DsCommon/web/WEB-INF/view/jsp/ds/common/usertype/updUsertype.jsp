@@ -32,7 +32,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">数字标识</td>
-		<td class="form_input"><input type="text" name="alias" dataType="Integer" maxlength="10" value="${fn:escapeXml(po.alias)}" /></td>
+		<td class="form_input"><input type="text" name="alias" datatype="Integer" maxlength="10" value="${fn:escapeXml(po.alias)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">排序</td>
@@ -64,7 +64,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<c:if test="${0<fn:length(list)}">
 	<c:forEach items="${list}" var="d">
 	<tr>
-		<td><input name="ralias" type="text" dataType="Require" maxlength="100" title="示例：0" value="${fn:escapeXml(d.alias)}" /></td>
+		<td><input name="ralias" type="text" datatype="Require" maxlength="100" title="示例：0" value="${fn:escapeXml(d.alias)}" /></td>
 		<td><input name="rname" type="text" maxlength="100" title="示例：系统用户" value="${fn:escapeXml(d.name)}"　/></td>
 		<td><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>
@@ -75,7 +75,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <div style="display:none;">
 <table id="cloneTable">
 	<tr class="list">
-		<td><input name="ralias" type="text" dataType="Require" maxlength="100" title="示例：0" /></td>
+		<td><input name="ralias" type="text" datatype="Require" maxlength="100" title="示例：0" /></td>
 		<td><input name="rname" type="text" maxlength="100" title="示例：系统用户" /></td>
 		<td><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>

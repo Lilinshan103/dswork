@@ -97,6 +97,13 @@
 		对/config/config.property下文件新加配置dswork.active=dev，其中dev可以为其它名称用于开启开发环境配置文件，使原只读取存放于/config目录下的
 		配置文件，扩展为优先读取/config/dev/下的同名文件，包括config.property文件（dswork.active参数仅识别/config/config.propert文件的配置）
 2018-05-13
-	dswork增加了dswork.config.spring包，集成配置mybatis中的默认spring系统配置，包括配置文件、数据源、mybatis配置
-	dswork修改了dswork.config包，增加了dswork.config.spring配置文件，增加内容及作用同上。
+	dswork修改了dswork.config包，集成配置mybatis中的默认spring系统配置，包括配置文件、数据源、mybatis配置
 	dswork修改了dswork.core包，对"jskey.upload.savePath"参数增加默认值：/WorkServer/WebIO/temp
+2018-06-08
+	dswork修改了dswork.core包，修改了mybatis集成类，可使用变量来使用内置的兼容性文件
+	dswork修改了dswork.config包，增加了dswork.config.mybaits配置文件，结合dswork.core包的修改使用
+2018-07-03
+	dswork修改了dswork.config包，增加了dswork.config.ex配置文件，默认内置集成多数据源时的mybatis配置
+2018-07-12
+	spring升级为4.3.18.release，目前对内置的cxf-2.6.0包有兼容性问题
+

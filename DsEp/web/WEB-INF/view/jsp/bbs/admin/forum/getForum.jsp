@@ -73,8 +73,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <c:forEach items="${list}" var="d">
 	<tr>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
-		<td><input name="seq" type="text" style="width:30px;" maxlength="4" dataType="Integer" value="${d.seq}" /></td>
-		<td class="v" style="text-align:left;">${d.label}<input name="name" type="text" maxlength="100" dataType="Require" value="${fn:escapeXml(d.name)}" /></td>
+		<td><input name="seq" type="text" style="width:30px;" maxlength="4" datatype="Integer" value="${d.seq}" /></td>
+		<td class="v" style="text-align:left;">${d.label}<input name="name" type="text" maxlength="100" datatype="Require" value="${fn:escapeXml(d.name)}" /></td>
 		<td class="k"><input name="keyIndex" type="text" style="width:60px;" readonly="readonly" value="${d.id}" /></td>
 		<td>${fn:escapeXml(d.status==1?"已启用":"已禁用")}</td>
 		<%--<td>${fn:escapeXml(d.viewsite)}</td>--%>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.common.dao.DsCommonTableDao">
+
+<insert id="insert" parameterType="dswork.common.model.DsCommonTable">
+	insert into DS_COMMON_TABLE
+	(ID, CATEGORYID, NAME, ALIAS, STATUS, SEQ, DATATABLE, MEMO)
+	values
+	(#{id}, #{categoryid}, #{name}, #{alias}, #{status}, #{seq}, #{datatable}, #{memo})
+</insert>
+
+<delete id="delete">
+	delete from DS_COMMON_TABLE where ID=#{id}
+</delete>
+
+<update id="update" parameterType="dswork.common.model.DsCommonTable">
+	update DS_COMMON_TABLE set
+		CATEGORYID=#{categoryid},
+		NAME=#{name},
+		ALIAS=#{alias},
+		STATUS=#{status},
+		SEQ=#{seq},
+		DATATABLE=#{datatable},
+		MEMO=#{memo}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="dswork.common.model.DsCommonTable">
+	<id property="id" column="ID" />
+	<result property="categoryid" column="CATEGORYID" />
+	<result property="categoryName" column="CNAME" />
+	<result property="name" column="NAME" />
+	<result property="alias" column="ALIAS" />
+	<result property="status" column="STATUS" />
+	<result property="seq" column="SEQ" />
+	<result property="datatable" column="DATATABLE" />
+	<result property="memo" column="MEMO" />
+</resultMap>
+
+<sql id="columns">ID, CATEGORYID, NAME, ALIAS, STATUS, SEQ, DATATABLE, MEMO</sql>
+
+<sql id="columns2">c.NAME AS CNAME, t.ID, t.CATEGORYID,t.NAME, t.ALIAS, t.STATUS, t.SEQ, t.DATATABLE, t.MEMO</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> and ID=#{id} </if>
+		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(alias)"> and ALIAS like #{alias, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
+		<if test="@Ognl@isNotEmpty(seq)"> and SEQ=#{seq} </if>
+		<if test="@Ognl@isNotEmpty(datatable)"> and DATATABLE like #{datatable, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(memo)"> and MEMO like #{memo, typeHandler=LikeTypeHandler} </if>
+	</where>
+</sql>
+<sql id="dynamicWhere2">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> and t.ID=#{id} </if>
+		<if test="@Ognl@isNotEmpty(categoryid)"> and t.CATEGORYID=#{categoryid} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and t.NAME like #{name, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(alias)"> and t.ALIAS like #{alias, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(status)"> and t.STATUS=#{status} </if>
+		<if test="@Ognl@isNotEmpty(seq)"> and t.SEQ=#{seq} </if>
+		<if test="@Ognl@isNotEmpty(datatable)"> and t.DATATABLE like #{datatable, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(memo)"> and t.MEMO like #{memo, typeHandler=LikeTypeHandler} </if>
+		and t.CATEGORYID = c.id
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DS_COMMON_TABLE where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="dswork.top" /><include refid="columns2" /> from DS_COMMON_TABLE t ,DS_COMMON_TABLE_CATEGORY c
+	<include refid="dynamicWhere2" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DS_COMMON_TABLE t ,DS_COMMON_TABLE_CATEGORY c
+	<include refid="dynamicWhere2" />
+</select>
+
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="testwork.model.Mark">
+
+<insert id="insert" parameterType="testwork.model.Mark">
+	insert into MARK
+	(ID, DEMOID, CONTENT, FOUNDTIME)
+	values
+	(#{id}, #{demoid}, #{content}, #{foundtime})
+</insert>
+
+<delete id="delete">
+	delete from MARK where ID=#{id}
+</delete>
+
+<update id="update" parameterType="testwork.model.Mark">
+	update MARK set
+		CONTENT=#{content},
+		FOUNDTIME=#{foundtime}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="testwork.model.Mark">
+	<id property="id" column="ID" />
+	<result property="demoid" column="DEMOID" />
+	<result property="content" column="CONTENT" />
+	<result property="foundtime" column="FOUNDTIME" />
+</resultMap>
+
+<sql id="columns">ID, DEMOID, CONTENT, FOUNDTIME</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(demoid)"> and DEMOID=#{demoid} </if>
+		<if test="@Ognl@isNotEmpty(content)"> and CONTENT like #{content, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(foundtime)"> and FOUNDTIME like #{foundtime, typeHandler=LikeTypeHandler} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from MARK where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="columns" /> from MARK <include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from MARK <include refid="dynamicWhere" />
+</select>
+
+</mapper>

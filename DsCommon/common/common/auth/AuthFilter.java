@@ -44,7 +44,7 @@ public class AuthFilter implements Filter
 					res.getWriter().print("0:登录超时！");
 					return;
 				}
-				res.sendRedirect(req.getContextPath() + "/login.html");
+				res.sendRedirect(req.getContextPath() + "/50x.jsp");
 				return;
 			}
 			chain.doFilter(requestWrapper, responseWraper);

@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app metadata-complete="false">
-	<context-param>
-		<param-name>log4jConfiguration</param-name>
-		<param-value>classpath:config/log4j2.xml</param-value>
-	</context-param>
-	<listener><listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class></listener>
-	
 	<!--
 	<servlet>
 		<servlet-name>websso_logout</servlet-name>

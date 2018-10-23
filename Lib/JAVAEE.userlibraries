@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <eclipse-userlibraries version="2">
     <library name="JAVAEE" systemlibrary="false">
-        <archive path="/Lib/JAVAEE/dswork.ee.jar"/>
+        <archive path="/Lib/JAVAEE/dswork-ee.jar"/>
         <archive path="/Lib/JAVAEE/annotations-api.jar"/>
         <archive path="/Lib/JAVAEE/ecj-4.6.3.jar"/>
         <archive path="/Lib/JAVAEE/tomcat-dbcp.jar"/>
@@ -9,7 +9,9 @@
         <archive path="/Lib/JAVAEE/tomcat-embed-el.jar"/>
         <archive path="/Lib/JAVAEE/tomcat-embed-jasper.jar"/>
         <archive path="/Lib/JAVAEE/tomcat-embed-logging-juli.jar"/>
-        <archive path="/Lib/JAVAEE/tomcat-embed-logging-log4j.jar"/>
         <archive path="/Lib/JAVAEE/tomcat-embed-websocket.jar"/>
+        <archive path="/Lib/tomcat_session/manager/memcached-session-manager-2.3.0.jar"/>
+        <archive path="/Lib/tomcat_session/manager/memcached-session-manager-tc8-2.3.0.jar"/>
+        <archive path="/Lib/tomcat_session/manager/redis/jedis-2.9.0.jar"/>
     </library>
 </eclipse-userlibraries>

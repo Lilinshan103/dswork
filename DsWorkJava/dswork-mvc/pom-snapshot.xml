@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.skeychen</groupId>
+	<artifactId>dswork-mvc</artifactId>
+	<version>${v.dswork}</version>
+	<name>dswork-mvc</name>
+	<description>dswork-mvc</description>
+	<url>https://github.com/skeychen/dswork</url>
+
+	<parent>
+		<groupId>com.github.skeychen</groupId>
+		<artifactId>dswork-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<dependencies>
+		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>org.springframework</groupId><artifactId>spring-web</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-web</artifactId><scope>provided</scope></dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>./</sourceDirectory>
+		<directory>E:/Workspaces/jar/pom-snapshot/dswork-mvc</directory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifestFile>./MANIFEST.MF</manifestFile>
+						<manifest><useUniqueVersions>false</useUniqueVersions></manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
